@@ -1,0 +1,214 @@
+@import url("./assets/css/animate.css");
+@import url("./assets/css/all.css");
+@import url("./assets/css/bootstrap.min.css");
+@import url("./assets/css/boxicons.min.css");
+@import url("./assets/css/bootstrap-icons.css");
+@import url("./assets/css/swiper-bundle.min.css");
+@import url("./assets/css/slick-theme.css");
+@import url("./assets/css/slick.css");
+@import url("./assets/css/nice-select.css");
+@import url("./assets/css/magnific-popup.css");
+@import url("./assets/css/odometer.css");
+@import url("./assets/style.css");
+
+@media only screen and (min-width: 1199px) {
+  .main-menu ul li:hover ul.submenu {
+    display: block !important;
+    transition: all linear 0.3s;
+  }
+}
+
+.select {
+  position: relative;
+  /* margin-bottom: 15px; */
+  width: 80px;
+}
+
+.select.style-2 {
+  position: relative;
+  /* margin-bottom: 15px; */
+  width: 100%;
+  border: 1px solid #eee;
+  height: 50px;
+  line-height: 30px;
+  border-radius: 5px;
+}
+
+.select.style-2 .selectBtn {
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  color: #696969;
+}
+
+.select .selectBtn {
+  background: var(--bg1);
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Saira", sans-serif;
+  color: #696969;
+}
+
+.select .selectBtn:after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 20px;
+  width: 7px;
+  height: 7px;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 2px solid #696969;
+  border-bottom: 2px solid #696969;
+  transition: 0.2s ease;
+}
+
+.select .selectBtn.toggle {
+  border-radius: 3px 3px 0 0;
+}
+
+.select .selectBtn.toggle:after {
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+.select .selectDropdown {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+  overflow: hidden;
+  background: var(--bg1);
+  border-top: 1px solid #eee;
+  z-index: 1;
+  background: #fff;
+  transform: scale(1, 0);
+  transform-origin: top center;
+  visibility: hidden;
+  transition: 0.2s ease;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.select .selectDropdown .option {
+  padding: 8px 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Saira", sans-serif;
+  color: #696969;
+}
+
+.select .selectDropdown .option:hover {
+  background: #090892;
+  color: #fff;
+}
+
+.select .selectDropdown.toggle {
+  visibility: visible;
+  transform: scale(1, 1);
+}
+
+/*# sourceMappingURL=index.css.map */
+
+.slidein {
+  /* margin: 0 20px; */
+  overflow: hidden;
+  /* padding: 2rem 0; */
+  width: 10rem;
+  height: 10rem;
+}
+
+.slide-inn {
+  margin-top: -20px;
+}
+
+.product-imgg {
+  width: 18%;
+  height: 5rem;
+}
+
+.all-products {
+  margin-top: 10px;
+
+}
+
+.awesome-collections {
+  width: 75%;
+  margin-left: 40px;
+  margin-top: 25px;
+}
+
+.contain-product {
+  width: 85%;
+  border-radius: 30px;
+  height: 24rem;
+  position: absolute;
+  top: 20%;
+  left: 7%;
+  display: flex;
+  gap: 3px;
+  padding: 25px;
+
+}
+
+.slidein img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* .react-multi-carousel-list {
+  padding: 0rem 0 2rem 0;
+} */
+
+.custom-dot-list-style button {
+  border: none;
+  background: rgb(255, 68, 68);
+}
+
+.react-multi-carousel-dot.react-multi-carousel-dot--active button {
+  background: rgb(255, 68, 68) !important;
+}
+
+@media (max-width:400px) {
+  .contain-product {
+    width: 90%;
+    border-radius: 30px;
+    height: 40rem;
+    position: static;
+    margin: auto;
+    display: block;
+
+
+    padding: 25px;
+
+
+  }
+
+  .product-imgg {
+    width: 22%;
+    height: 5rem;
+  }
+
+  .awesome-collections {
+    width: 75%;
+    margin-top: 12rem;
+
+
+  }
+
+  .product-imgg {
+    width: 80%;
+    margin: auto;
+    height: 5rem;
+  }
+}

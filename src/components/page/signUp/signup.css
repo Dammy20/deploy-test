@@ -1,0 +1,251 @@
+.Signup-form-container{
+    background-color: rgba(255,255,255,0.9);
+    font-family: 'Titillium Web', sans-serif;
+    padding: 25px 30px 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.form-bg{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.Signup-form-container .Signup-title{
+    color: #090892;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 25px;
+}
+
+.Signup-icon-login{
+	position: absolute;
+	margin-left: 8px;
+	margin-top: 3px;
+	color: #090892;
+	
+}
+.Signup-login-with-google-btn2{
+  transition: background-color .3s, box-shadow .3s;
+    
+  padding: 12px 16px 12px 42px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+  
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+  
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+  
+  
+ 
+}
+
+.Signup-form-container .Signup-title:after{
+    content: '';
+    background-color: #090892;
+    height: 2px;
+    width: 150px;
+    margin: 5px auto 0;
+    clear: both;
+    display: block;
+}
+.Signup-form-container .form-horizontal{
+    margin: 0 0 20px;
+    font-size: 0;
+
+    
+    
+}
+.Signup-contain{
+    width: 30%;
+    background-color: white;
+}
+.Signup-form-container .form-horizontal .sub-title{
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 15px;
+    padding: 17px 0 0;
+    border-top: 1px solid #d1d1d1;
+}
+/* .form-horizontal .form-group{
+    width: calc(35% - 10px);
+    margin: 0 10px 15px 0;
+    display: block;
+} */
+
+
+ .Signup-labelall{
+    color: #999;
+    font-weight: 500;
+    font-style: italic;
+    margin: 0 0 3px;
+}
+ .formcontrol{
+    color: black;
+    background-color: transparent;
+    font-size: 14px;
+    letter-spacing: 1px;
+    height: 33px;
+   width: 100%;
+    box-shadow: none;
+     display: inline-block;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+   
+
+    transition: all 0.3s;
+}
+.form-horizontal .form-control:focus{
+    box-shadow: none;
+    border: 1px solid #090892;
+}
+.form-horizontal .btn{
+    color: #fff;
+    background: #090892;
+    font-size: 13px;
+    
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 12px 30px 12px;
+    margin: 0 auto 20px;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    transition: all 0.3s ease;
+}
+.form-horizontal .btn:hover,
+.form-horizontal .btn:focus{
+    color: #fff;
+    background-color: #090892;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3),0 0 10px rgba(0,0,0,0.3) inset;
+    outline: none;
+}
+.form-horizontal .user-login{
+    
+    font-size: 13px;
+   
+   
+    display: block;
+}
+.form-horizontal .user-login a{
+    color: #090892;
+    transition: all 0.3s ease 0s;
+}
+.form-horizontal .user-login a:hover{ color: #555; }
+.Signup-form-container .Signup-social-links{
+    font-size: 14px;
+    text-align: center;
+}
+.Signup-form-container .Signup-social-links span{
+    font-style: italic;
+    margin: 0 0 20px;
+    display: block;
+    position: relative;
+}
+.Signup-form-container .Signup-social-links span:before,
+.Signup-form-container .Signup-social-links span:after{
+    content: '';
+    background-color: #999;
+    height: 1px;
+    width: 25%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+.Signup-form-container .Signup-social-links span:after{
+    left: auto;
+    right: 0;
+}
+.Signup-form-container .Signup-social-links a{
+    color: #fff;
+    background-color: #20599F;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    width: 120px;
+    padding: 7px 15px;
+    margin: 0 5px;
+    transition: all 0.3s ease 0s;
+}
+.formcontrol::placeholder{
+	padding-right: 16px;
+	font-size: small;
+	font-weight: 500;
+    color: black;
+}
+.Signup-form-container .Signup-social-links a i{
+    font-size: 13px;
+    margin-right: 3px;
+}
+.Signup-spin-nav{
+    top:30%;
+   left: 40%;
+    z-index: 1000;
+    position: absolute
+}
+.Signup-loading{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color: #f8f8f8ad;
+}
+.Signup-img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Signup-form-container .Signup-social-links a:nth-child(2){ background-color: #00ADF2; }
+.Signup-form-container .Signup-social-links a:hover{
+    text-shadow: 0 0 10px rgba(0,0,0,0.4);
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+@media only screen and (max-width:576px){
+    .Signup-form-container .form-group,
+    .Signup-form-container .form-group:nth-child(even),
+    .Signup-form-container .form-group.phone-no,
+    .Signup-form-container .form-group.age{
+        width: 100%;
+        margin: 0 0 25px;
+    }
+   
+}
+@media only screen and (max-width:479px){
+    .Signup-form-container .Signup-social-links a{
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+        height: 150vh;
+    }
+    .Signup-contain{
+    width: 90%;
+    background-color: white;
+}
+    .Signup-form-container .Signup-social-links a:nth-child(even){ margin: 0 auto 10px; }
+}
+@media only screen and (max-width:400px){
+ 
+	.Signup-form-container{
+    background-color: rgba(255,255,255,0.9);
+    font-family: 'Titillium Web', sans-serif;
+    padding: 25px 30px 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+}

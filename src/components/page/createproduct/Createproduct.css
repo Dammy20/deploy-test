@@ -1,0 +1,420 @@
+.border-product {
+  width: 80%;
+  height: 20vh;
+  border: 3px solid #d1d5db;
+  border-style: dashed;
+}
+
+.button-product {
+  border: none;
+  margin-left: 30px;
+  margin-top: -1.5px;
+  background-color: transparent;
+}
+
+.message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  animation: fadeOut 2s linear forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.product-border {
+  width: 13%;
+  position: relative;
+  height: 7vh;
+  margin-top: 10px;
+  border: none;
+  color: black;
+  font-weight: bold;
+  margin-right: 6px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px #eee;
+  background-color: white;
+}
+
+.image-preview-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.image-preview {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.image-div {
+  width: 100%;
+  height: 5vh;
+  border: 1px solid;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 0 7px #eee;
+  background-color: white;
+  color: black;
+}
+
+.btn-product {
+  width: 26%;
+  height: 5vh;
+  background-color: #090892;
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+}
+
+.btn-product1 {
+  width: 16%;
+  margin-top: 3rem;
+  height: 8vh;
+  border: 0.5px solid #d1d5db;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  font-weight: 600;
+  background-color: #090892;
+  color: white;
+
+  outline: none;
+  border-radius: 15px;
+}
+
+.cancel {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+}
+
+.icon-upload {
+  width: 100%;
+}
+
+.text-upload {
+  margin-top: -30px;
+}
+
+.product-contain {
+  margin-left: 14rem;
+  padding-bottom: 100px;
+}
+
+.width-line {
+  width: 79.5%;
+  margin-top: 40px;
+}
+
+.form-product {
+  width: 80%;
+}
+
+.form-subproduct {
+  width: 17.2rem;
+  border-radius: 10px;
+}
+
+.description {
+  width: 80%;
+  height: 5rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.properties {
+  display: flex;
+  gap: 4px;
+}
+
+input:checked+.slider {
+  background-color: #090892;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #090892;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.sales {
+  display: flex;
+
+  padding-top: 40px;
+  gap: 36.8rem;
+}
+
+.sales1 {
+  display: flex;
+
+  padding-top: 40px;
+  gap: 32.5rem;
+}
+
+.image-flex {
+  width: 90%;
+
+  overflow-x: auto;
+}
+
+.display-flex {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  height: 80%;
+}
+
+.crypto {
+  padding-left: 20px;
+  padding-top: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.img-sizeproduct {
+  width: 35%;
+  border-radius: 100%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.display-border {
+  width: 17%;
+  height: 23vh;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+.sales2 {
+  display: flex;
+
+  padding-top: 40px;
+  gap: 38rem;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.div-btn {
+
+  margin-top: 5px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch-input {
+  display: none;
+}
+
+
+@media only screen and (max-width:479px) {
+  .product-contain {
+    margin-left: 5px;
+  }
+
+  .properties {
+    display: block;
+  }
+
+  .sales {
+    display: flex;
+
+    padding-top: 40px;
+    gap: 6.3rem;
+  }
+
+  .product-border {
+    width: 60%;
+    position: relative;
+    height: 7vh;
+    margin-top: 10px;
+    border: none;
+    color: black;
+    margin-left: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px #eee;
+    background-color: white;
+  }
+
+  .border-product {
+    width: 95%;
+    height: 33vh;
+    border: 3px solid #d1d5db;
+    border-style: dashed;
+  }
+
+  .button-product {
+    position: absolute;
+    top: 0,
+
+  }
+
+  .width-line {
+    width: 95%;
+    margin-top: 40px;
+  }
+
+  .form-product {
+    width: 95%;
+  }
+
+  .image-flex {
+    width: 90%;
+
+    overflow-x: auto;
+  }
+
+  .display-flex {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    height: 80%;
+  }
+
+  .crypto {
+    padding-left: 20px;
+    padding-top: 10px;
+    font-weight: 600;
+  }
+
+  .img-sizeproduct {
+    width: 35%;
+    border-radius: 100%;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .display-border {
+    width: 60%;
+    padding-left: 10px;
+    padding-right: 20px;
+    height: 23vh;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+  }
+
+  .btn-product {
+    width: 46%;
+    height: 8vh;
+    background-color: #090892;
+    font-weight: 600;
+    color: white;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+  }
+
+  .div-btn {
+    margin-top: 10px;
+  }
+
+  .btn-product1 {
+    width: 46%;
+    height: 8vh;
+    border: 0.5px solid #d1d5db;
+    color: black;
+    font-weight: 600;
+    background-color: transparent;
+
+    outline: none;
+    border-radius: 15px;
+  }
+
+  .description {
+    width: 95%;
+  }
+
+  .sales1 {
+    display: flex;
+
+    padding-top: 40px;
+    gap: 2rem;
+  }
+
+  .sales2 {
+    display: flex;
+
+    padding-top: 40px;
+    gap: 7.3rem;
+  }
+
+  .form-subproduct {
+    width: 22rem;
+    border-radius: 10px;
+  }
+
+}

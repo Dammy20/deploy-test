@@ -1,0 +1,40 @@
+.profile-two{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.personal{
+    color: #090892;
+}
+.btn-profile{
+    background-color: #090892;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+@media(max-width:500px){
+    .profile-two{
+      flex-direction: column;
+  justify-content: center;
+    }
+   
+}
+
+
+.img-fluid{
+    width: 100px;
+    height: 100px;
+}
+@media(min-width:320px) {
+    .profile-arrange{
+        width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+        flex-direction: column;
+    }
+    
+}

@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+.Login-content{
+   
+    background-color: white;
+    padding: 2rem 2rem 3rem 1rem;
+    box-shadow: 0 0 5px 5px rgba(0,0,0, .05);
+	
+}
+.Login-contain{
+	width: 60%;
+	
+	margin-left: 250px;
+	margin-top: 60px;
+}
+.Login-error-message{
+	padding-right: 70%;
+	font-size: small;
+	font-weight: 400;
+}
+.Login-error-message2{
+	padding-right: 60%;
+	font-size: small;
+	font-weight: 400;
+}
+.Login-head-logo4{
+	width: 20%;
+	margin-right: 100%;
+	
+}
+.Login-icon-login{
+	position: absolute;
+	margin-left: 8px;
+	margin-top: 3px;
+	color: #090892;
+	
+}
+.signup{
+	color: #090892;
+	font-size: medium;
+	font-weight: 600;
+}
+
+.Login-login-with-google-btn {
+  transition: background-color .3s, box-shadow .3s;
+    
+  padding: 12px 16px 12px 42px;
+  border: none;
+  border-radius: 3px;
+  margin-top: 20px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
+  
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+  
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+  
+  
+ 
+}
+.Login-spin-nav{
+    top:30%;
+   left: 40%;
+    z-index: 1000;
+    position: absolute
+}
+.Login-loading{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color: #f8f8f8ad;
+}
+
+
+.signin-text{
+    font-style: normal;
+    margin-right: 60%;
+	font-size: 15px;
+	font-weight: 500;
+	color: #7f8182;
+
+}
+.signin-message{
+    font-style: normal;
+    margin-left: 40px;
+	font-size: 15px;
+	font-weight: 500;
+	color: #7f8182;
+
+}
+.Login-login-message{
+	color: #090892;
+	font-weight: bold;
+	margin-right: 42%;
+	font-size: 120%;
+}
+
+.form-control{
+    display: block;
+    width:100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height:1.5;
+  
+    color:#495057;
+	background-color: white;
+    height: auto;
+	border: 1.5px solid #090892;
+    border-radius: 5px;
+    background-color: #fff;
+    background-clip: padding-box;
+}
+.form-control::placeholder{
+
+	font-size: small;
+	font-weight: 600;
+}
+.Login-image-resize{
+	width: 105%;
+	
+}
+
+
+
+.form-control:focus{
+
+    color: #495057;
+    background-color: #fff;
+    border-color: #fff;
+    outline: 0;
+    box-shadow: none;
+}
+.birthday-section{
+    padding: 15px;
+}
+.Login-div-flex{
+	gap: 20%;
+}
+.Login-login-link{
+	color: #090892;
+}
+.Login-login-user{
+	 font-size: 13px;
+    
+   
+    display: block;
+}
+.btn-class{
+    
+	border: none;
+	border-radius: 5px;
+	margin-top: 20px;
+	
+	font-size: 15px;
+
+	background-color: #090892;
+	color: white;
+	width: 30%;
+	height: 2.5rem;
+}
+.a-link{
+	color: #090892;
+	font-weight:600;
+}
+.btn-clas{
+	border: none;
+	height: 2.5rem;
+	border-radius: 5px;
+	color: white;
+	font-size: medium;
+	font-weight: 400;
+}
+.text-password{
+	font-size: medium;
+	font-weight: 500;
+	color: #090892;
+}
+@media only screen and (max-width:479px){
+	.Login-login-message{
+	color: #090892;
+	font-weight: bold;
+	margin-right: 10%;
+	margin-left: 20%;
+	text-align: center;
+	font-size: 120%;
+	margin-top: 5px;
+}
+.Login-contain{
+	width: 50%;
+	
+	margin-right: 150px;
+}
+.signin-text{
+	
+	margin-right: 10%;
+	margin-left: 20%;
+	text-align: center;
+	
+	margin-top: 15px;
+}
+.Login-head-logo4{
+	width: 40%;
+	
+}
+.Login-div-headlogo{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 140px;
+}
+.Login-contain{
+	width: 82%;
+	
+	
+}
+
+.form-check-label{
+	display: none;
+}
+.form-check-input{
+	display: none;
+}
+.text-password {
+	margin-left: 53px;
+}
+.Login-image-resize{
+	display: none;
+}
+  
+  
+   }

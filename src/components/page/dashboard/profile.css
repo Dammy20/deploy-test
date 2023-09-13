@@ -1,0 +1,237 @@
+.Profile-profile-two{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Profile-profile-details{
+   margin-top: -75px;
+   margin-left: 12rem;
+   
+   
+}
+.Profile-subtext{
+    margin-top: -10px;
+    margin-left: 92px;
+    font-size: small;
+}
+.btn-profile{
+    width: 13%;
+    height: 2.2rem;
+    border: none;
+    
+
+   
+}
+.btn-profile2{
+    width: 20%;
+    height: 3rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.btn-profile3{
+    width: 20%;
+    height: 3rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.Profile-camera-icon{
+    width: 10%;
+    height: 10vh;
+}
+.Profile-image-upload{
+    width: 85px;
+    height: 7.5rem;
+    background-color: white;
+    margin-left: 10px;
+    
+    position: relative;
+  
+   
+}
+.email{
+    font-size: 16px;
+    margin-left: 10px;
+}
+.fullname{
+    font-size: 13px;
+    margin-top: -9px;
+  
+}
+
+
+.Profile-img-container{
+    box-shadow: 0 0 20px #eee;
+    border: none;
+    background-color: white;
+    width: 100%;
+
+}
+
+.Profile-img-contain{
+    
+    border: none;
+    background-color: white;
+    width: 100%;
+    position: relative;
+
+}
+.photo-icon{
+    width: 20px;
+    position: absolute;
+   left: 7%;
+   bottom: 0;
+  
+    
+    
+  
+}
+ #v-pills-profile {
+    
+    height:130vh
+    
+    
+  }
+/* .Profile-profile-details{
+   
+    display: flex;
+   gap: 50px;
+   margin-left: 35px;
+   margin-top: 10px;
+   
+} */
+
+@media only screen and (max-width: 576px) {
+  #v-pills-profile {
+    overflow: scroll;
+    height:150vh
+    
+    
+  }
+  
+  .Profile-img-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+     flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: center; */
+  }
+  .Profile-image-upload{
+    width: 85px;
+    height: 7.5rem;
+    background-color: white;
+    margin-left: 10px;
+    
+    
+  
+   
+}
+
+
+ .photo-icon{
+    width: 20px;
+    position: absolute;
+   left: 15%;
+   bottom: 0;
+  
+    
+    
+  
+}
+.Profile-display-profile{
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+}
+.personal{
+    color: #090892;
+}
+.btn-profile{
+    width: 14%;
+    background-color: #090892;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.btn-profile2{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+.btn-profile3{
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+@media(max-width:500px){
+    .Profile-profile-two{
+      flex-direction: column;
+  justify-content: center;
+    }
+   
+}
+
+
+.Profile-Profile-img-fluid{
+    width: 100px;
+    height: 100px;
+}
+@media only screen and (max-width:475px) {
+    #v-pills-profile {
+    overflow: scroll;
+    height: 170vh; 
+  }
+  
+  .Profile-subtext{
+    margin-top: -10px;
+    margin-left: 50px;
+    font-size: small;
+}
+
+    
+   
+   .Profile-btn-profile{
+    width: 50%;
+    height: 3rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+
+.Profile-profile-tag{
+    width: 100%;
+    height: 100vh;
+}
+.photo-icon{
+    width: 20px;
+    position: absolute;
+   
+    margin-top: -35px;
+    
+    
+  
+}
+   
+  
+   
+    
+    
+}

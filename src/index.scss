@@ -1,0 +1,115 @@
+@import url("./assets/css/animate.css");
+@import url("./assets/css/all.css");
+@import url("./assets/css/bootstrap.min.css");
+@import url("./assets/css/boxicons.min.css");
+@import url("./assets/css/bootstrap-icons.css");
+// @import url("./assets/css/jquery-ui.css");
+@import url("./assets/css/swiper-bundle.min.css");
+@import url("./assets/css/slick-theme.css");
+@import url("./assets/css/slick.css");
+@import url("./assets/css/nice-select.css");
+@import url("./assets/css/magnific-popup.css");
+@import url("./assets/css/odometer.css");
+@import url("./assets/style.css");
+
+@media only screen and (min-width: 1199px) {
+    .main-menu ul li:hover ul.submenu {
+        display: block !important;
+        transition: all linear .3s;
+    }
+}
+
+.select {
+    position: relative;
+    /* margin-bottom: 15px; */
+    width: 80px;
+  }
+  .select.style-2{
+    position: relative;
+    /* margin-bottom: 15px; */
+    width: 100%;
+    border: 1px solid #eee;
+    height: 50px;
+    line-height: 30px;
+    border-radius: 5px;
+  }
+  .select.style-2 .selectBtn{
+    font-size: 13px;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+    color: #696969;
+  }
+  .select .selectBtn {
+    background: var(--bg1);
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Saira", sans-serif;
+    color: #696969;
+  }
+  .select .selectBtn:after {
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: 20px;
+    width: 7px;
+    height: 7px;
+    -webkit-transform: translateY(-50%) rotate(45deg);
+            transform: translateY(-50%) rotate(45deg);
+    border-right: 2px solid #696969;
+    border-bottom: 2px solid #696969;
+    transition: 0.2s ease;
+  }
+  .select .selectBtn.toggle {
+    border-radius: 3px 3px 0 0;
+  }
+  .select .selectBtn.toggle:after {
+    -webkit-transform: translateY(-50%) rotate(-135deg);
+            transform: translateY(-50%) rotate(-135deg);
+  }
+  .select .selectDropdown {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+    overflow: hidden;
+    background: var(--bg1);
+    border-top: 1px solid #eee;
+    z-index: 1;
+    background: #fff;
+    -webkit-transform: scale(1, 0);
+            transform: scale(1, 0);
+    -webkit-transform-origin: top center;
+            transform-origin: top center;
+    visibility: hidden;
+    transition: 0.2s ease;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  }
+  .select .selectDropdown .option {
+    padding: 8px 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Saira", sans-serif;
+    color: #696969;
+  }
+  .select .selectDropdown .option:hover {
+    background: #090892;
+    color: #fff;
+  }
+  .select .selectDropdown.toggle {
+    visibility: visible;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
