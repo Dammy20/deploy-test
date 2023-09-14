@@ -55,9 +55,7 @@ function ContentOfProfile() {
         address: "",
         profileImage: ""
     })
-    const handleDisableFields = () => {
-        setIsDisabled(true);
-    };
+
     const handleFileSelect = (event) => {
         const file = event.target.files[0];
         setImageFile(file);
@@ -139,7 +137,7 @@ function ContentOfProfile() {
             } else {
                 toast.error(response.data.message)
             }
-            setIsNewUser(false);
+
             setEditMode(false)
 
         } catch (error) {
@@ -237,7 +235,7 @@ function ContentOfProfile() {
                         console.log(document)
                         if (response.data.result.isSuccess == true) {
                             toast.success('file uploaded successfully')
-                            upload(response.data.result.message);
+
                         } else {
                             toast.error('profile image upload failed')
                         }
