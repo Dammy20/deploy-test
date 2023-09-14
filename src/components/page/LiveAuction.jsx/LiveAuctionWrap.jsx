@@ -6,7 +6,7 @@ import axios from "axios";
 import { BASE_URL } from '../../../http/config';
 import useProtectedApi from '../../../hooks/useProtectedApi';
 import { useLocation } from "react-router-dom";
-import LiveAuctionCard from "../LiveAuction.jsx/LiveAuctionCard";
+import './LiveAuctionCard'
 import Pagination from '../../common/Pagination';
 import { base_Url } from '../../../http/config';
 import SwiperCore, { Navigation, Autoplay } from 'swiper';
