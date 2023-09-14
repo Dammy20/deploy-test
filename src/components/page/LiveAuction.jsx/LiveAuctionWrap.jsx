@@ -1,6 +1,13 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import '../home/HeroBanner'
+import "react-multi-carousel/lib/styles.css";
+import axios from "axios";
+import { BASE_URL } from '../../../http/config';
+import useProtectedApi from '../../../hooks/useProtectedApi';
+import { useLocation } from "react-router-dom";
+import LiveAuctionCard from "../LiveAuction.jsx/LiveAuctionCard";
 import Pagination from '../../common/Pagination';
-import { useState, useEffect, useContext } from 'react';
 import { base_Url } from '../../../http/config';
 import SwiperCore, { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,25 +16,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 SwiperCore.use([Navigation, Autoplay]);
 
-import "react-multi-carousel/lib/styles.css";
-import { Link } from 'react-router-dom';
-import Carousel from "react-multi-carousel";
-import '../home/HeroBanner'
-import "react-multi-carousel/lib/styles.css";
-import { useSearchParams } from 'react-router-dom';
-import '../LiveAuction.jsx/LiveAuction.css'
-import './LiveAuction.css'
 
-import { UserContext } from '../../common/UserContext';
-import axios from "axios";
-import { BASE_URL } from '../../../http/config';
-
-import useProtectedApi from '../../../hooks/useProtectedApi';
-; import { useLocation } from "react-router-dom";
-import { useParams, useRoutes } from 'react-router-dom';
-
-
-import LiveAuctionCard from "./LiveAuctionCard";
 
 function LiveAuctionWrap() {
 
