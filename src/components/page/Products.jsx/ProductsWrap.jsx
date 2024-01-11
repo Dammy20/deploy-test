@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import '../home/HeroBanner'
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
+import axiosInstance from '../../../store/axiosinstance';
 import { BASE_URL } from '../../../http/config';
 import useProtectedApi from '../../../hooks/useProtectedApi';
 import { useLocation } from "react-router-dom";
-import LiveAuctionCard from "../LiveAuction.jsx/LiveAuctionCard";
+import LiveAuctionCard from "../LiveAuction/LiveAuctionCard";
 import Pagination from '../../common/Pagination';
 import { base_Url } from '../../../http/config';
 import SwiperCore, { Navigation, Autoplay } from 'swiper';
@@ -20,9 +21,6 @@ SwiperCore.use([Navigation, Autoplay]);
 
 
 function ProductsWrap() {
-
-
-
     const [displayProduct, setDisplayProduct] = useState([]);
     const [profileName, setProfileName] = useState(null)
     const [existingDetails, setExistingDetails] = useState({});
@@ -34,7 +32,7 @@ function ProductsWrap() {
     const [totalItems, setTotalItems] = useState(0);
 
 
-    const [totalPages, setTotalPages] = useState();
+    const [totalPages, setTotalPages] = useState(1);
     const [displayAll, setDisplayAll] = useState({})
     const [categoryId, setCategoryId] = useState(null)
     const [userDetails, setUserDetails] = useState([])
@@ -45,19 +43,28 @@ function ProductsWrap() {
     const [selectedCategory, setSelectCategory] = useState(null);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const encodedAuctionId = searchParams.get("auctionId");
-    const auctionId = atob(encodedAuctionId);
+    const auctionId = searchParams.get("auctionId");
 
     function encodeProductId(productId) {
         return btoa(productId);
     }
+    const encodedAuctionId = searchParams.get("auctionId");
+
+
+    function decodeAuctionId(encodedAuctionId) {
+        return atob(encodedAuctionId);
+    }
+    const decodedAuctionId = encodedAuctionId ? decodeAuctionId(encodedAuctionId) : null;
+
+
+
 
     useEffect(() => {
-        console.log(auctionId)
+        console.log(decodedAuctionId);
         const fetchData = async () => {
             setIsLoading(true)
             try {
-                const response = await axios.get(`${base_Url}/api/Product/GetProductByCategory?CategoryId=${auctionId}&pageNumber=1&pageSize=20`);
+                const response = await axiosInstance.get(`${base_Url}/api/Product/GetProductByCategory?CategoryId=${decodedAuctionId}&pageNumber=1&pageSize=20`);
                 console.log(response.data);
                 setDisplayAll(response.data)
             } catch (error) {
@@ -70,31 +77,15 @@ function ProductsWrap() {
         };
         fetchData()
 
-        if (auctionId != null) {
-            fetchData()
-        } else {
-            fetchAll()
-        }
-    }, [auctionId]);
+        // if (auctionId != null) {
+        //     fetchData()
+        // } else {
+        //     fetchAll()
+        // }
+    }, [decodedAuctionId]);
     console.log(displayAll)
 
-    // const responsive = {
-    //   desktop: {
-    //     breakpoint: { max: 3000, min: 1024 },
-    //     items: 4,
-    //     slidesToSlide: 4
-    //   },
-    //   tablet: {
-    //     breakpoint: { max: 1024, min: 768 },
-    //     items: 3,
-    //     slidesToSlide: 3
-    //   },
-    //   mobile: {
-    //     breakpoint: { max: 767, min: 464 },
-    //     items: 2,
-    //     slidesToSlide: 1
-    //   }
-    // };
+
     const responsive = {
         768: {
             slidesPerView: 2,
@@ -109,7 +100,7 @@ function ProductsWrap() {
 
 
     useEffect(() => {
-        fetchAll();
+        fetchAll(currentPage);
         fetchCategory()
         FetchSingleUser()
     }, [currentPage]);
@@ -154,7 +145,7 @@ function ProductsWrap() {
 
     const fetchCategory = async () => {
         try {
-            const response = await axios.get('http://gateway.peabux.com/auction/api/Category/GetAllCategory');
+            const response = await axiosInstance.get(`${base_Url}/api/Category/GetAllCategory`);
             setSelectedCategory(response.data);
             console.log(response.data)
         } catch (error) {
@@ -164,7 +155,7 @@ function ProductsWrap() {
 
     const FetchSingleUser = async () => {
         try {
-            const response = await axios.get(`${base_Url}/api/Product/GetAllProductByCreatedUser?CreatedBy=${userId}&pageNumber=1&pageSize=10`)
+            const response = await axiosInstance.get(`${base_Url}/api/Product/GetAllProductByCreatedUser?CreatedBy=${userId}&pageNumber=1&pageSize=10`)
             console.log(userId)
             console.log(response.data)
             setUserDetails(response.data.data)
@@ -191,8 +182,8 @@ function ProductsWrap() {
     async function fetchAll() {
         try {
             setIsLoading(true);
-            const response = await axios.get(
-                'http://gateway.peabux.com/auction/api/Product/GetAllProductApproved'
+            const response = await axiosInstance.get(
+                `${base_Url}/api/Product/GetAllProductApproved`
             );
             const data = response.data.data;
 
@@ -207,8 +198,8 @@ function ProductsWrap() {
             const productNames = ongoingAuctions.map((product) => product.productName);
 
 
-            const response2 = await axios.get(
-                `http://gateway.peabux.com/auction/api/Product/GetAllProductApprovedANDAuctionNotEnded?pageNumber=${currentPage}&pageSize=12&searchProductName=${productNames.join(',')}`
+            const response2 = await axiosInstance.get(
+                `${base_Url}/api/Product/GetAllProductApprovedANDAuctionNotEnded?pageNumber=${currentPage}&pageSize=12&searchProductName=${productNames.join(',')}`
             );
 
 
@@ -228,8 +219,8 @@ function ProductsWrap() {
 
 
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
     };
     const handleCategory = (id, name) => {
         setCategoryId(id)
@@ -278,7 +269,7 @@ function ProductsWrap() {
                                 </div>
 
 
-                                <div className="awesome-collections mb-5" >
+                                <div className="awesome-collections login-content mb-5" >
                                     <div>
                                         <h1 className="category-name ">Awesome Collection</h1>
                                         <p className="category-subname ">Scroll to view more categories.</p>
@@ -291,7 +282,41 @@ function ProductsWrap() {
                                         slidesPerView={1}
                                         breakpoints={responsive}
                                     >
-                                        {selectCategory.map((item, index) => {
+                                        {isLoading ? (
+                                            <nav className='Login-loading'>
+                                                <img className='Login-spin-nav' src="./images/bg/elipsing.svg" alt="" />
+                                            </nav>
+                                        ) : (
+                                            selectCategory.map((item, index) => {
+                                                const imagePath = categoryImageMapping[index] || '';
+                                                const categoryColor = categoryColors[index % categoryColors.length];
+                                                const encodedProductId = encodeProductId(item.id);
+
+                                                return (
+                                                    <SwiperSlide key={index} className='custom-slide'>
+                                                        <Link to={`/products?auctionId=${encodedProductId}`} className={`category ${categoryColor}`}>
+                                                            <div className="slidein" onClick={() => handleCategory(item.id, item.categoryName)}>
+                                                                <img className='w-100 h-75' src={item.categoryImage} alt="movie" />
+                                                            </div>
+                                                            <div className="slide-inn d-flex gap-3">
+                                                                <div style={{
+                                                                    width: "30px",
+                                                                    height: '30px',
+                                                                    borderRadius: "100%",
+                                                                    backgroundColor: categoryColor
+                                                                }}>
+                                                                </div>
+                                                                <div className="">
+                                                                    <h4>{item.categoryName}</h4>
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </SwiperSlide>
+                                                );
+                                            })
+                                        )}
+
+                                        {/* {selectCategory.map((item, index) => {
                                             const imagePath = categoryImageMapping[index] || '';
                                             const categoryColor = categoryColors[index % categoryColors.length];
                                             const encodedProductId = encodeProductId(item.id);
@@ -317,48 +342,9 @@ function ProductsWrap() {
                                                     </Link>
                                                 </SwiperSlide>
                                             );
-                                        })}
+                                        })} */}
                                     </Swiper>
-                                    {/* <Carousel
-                    responsive={responsive}
-                    autoPlay={false}
-                    swipeable={true}
-                    draggable={true}
-                    showDots={false}
-                    infinite={true}
-                    partialVisible={false}
-                    dotListClass="custom-dot-list-style"
 
-                  >
-
-                    {selectCategory.map((item, index) => {
-                      const imagePath = categoryImageMapping[index] || '';
-                      const categoryColor = categoryColors[index % categoryColors.length];
-                      const encodedProductId = encodeProductId(item.id);
-
-                      return (
-                        <Link to={`/product?auctionId=${encodedProductId}`} key={index} className={`category ${categoryColor}`}>
-                          <div style={{ padding: "0px" }} className="slidein" onClick={() => handleCategory(item.id, item.categoryName)}>
-                            <img src={imagePath} alt="movie" />
-                          </div>
-                          <div className="d-flex gap-3 mt-3">
-                            <div style={{
-                              width: "30px", height: '30px',
-                              borderRadius: "100%",
-                              backgroundColor: categoryColor
-                            }}>
-
-                            </div>
-                            <div className="">
-                              <h4 >{item.categoryName}</h4>
-                            </div >
-
-
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </Carousel> */}
                                 </div>
                             </div>
 
@@ -386,109 +372,88 @@ function ProductsWrap() {
             </div>
 
 
+            <div className="row d-flex justify-content-center">
+                {isLoading ? (
+                    <nav className='Login-loading'>
+                        <img className='Login-spin-nav' src="./images/bg/elipsing.svg" alt="" />
+                    </nav>
+                ) : (
+                    <div className="mb-40 d-flex gap-3 flex-wrap justify-content-center" data-wow-duration="1.5s" data-wow-delay="0.2s">
+                        {displayAll && displayAll.data && displayAll.data.length > 0 ? (
+                            displayAll.data.map((item, index) => (
+                                <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
+                                    <div className="">
+                                        {item.productUrlJson &&
+                                            item.productUrlJson.split(',').map((url, imageIndex) => (
+                                                <img className="" src="" alt="" key={imageIndex} />
+                                            ))}
+                                    </div>
+                                    <LiveAuctionCard
+                                        image={
+                                            item.productUrlJson
+                                                ? item.productUrlJson.split(',')[3]
+                                                : '/images/bg/noimage.png'
+                                        }
+                                        image2={
+                                            item.productUrlJson
+                                                ? item.productUrlJson.split(',')[1]
+                                                : '/images/bg/noimage.png'
+                                        }
+                                        productName={item.productName}
+                                        title={item.description}
+                                        productId={item.id}
+                                        startDate={item.startDate}
+                                        endDate={item.endDate}
+                                        auctionSetPrice={formatPrice(item.auctionSetPrice)}
+                                        isAuctionEnded={item.isAuctionEnded}
+                                        createdBy={item.createdBy}
+                                    />
+                                </div>
+                            ))
+                        ) : filtered && filtered.length > 0 ? (
+                            filtered.map((item, index) => (
+                                <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
+                                    <div className="">
+                                        {item.productUrlJson &&
+                                            item.productUrlJson.split(',').map((url, imageIndex) => (
+                                                <img className="" src="" alt="" key={imageIndex} />
+                                            ))}
+                                    </div>
+                                    <LiveAuctionCard
+                                        image={
+                                            item.productUrlJson
+                                                ? item.productUrlJson.split(',')[3]
+                                                : '/images/bg/noimage.png'
+                                        }
+                                        image2={
+                                            item.productUrlJson
+                                                ? item.productUrlJson.split(',')[1]
+                                                : '/images/bg/noimage.png'
+                                        }
+                                        productName={item.productName}
+                                        title={item.description}
+                                        productId={item.id}
+                                        startDate={item.startDate}
+                                        endDate={item.endDate}
+                                        auctionSetPrice={formatPrice(item.auctionSetPrice)}
+                                        isAuctionEnded={item.isAuctionEnded}
+                                        createdBy={item.createdBy}
+
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <p>No products found.</p>
+                        )}
+                    </div>
+                )}
+                {!isLoading ? (
+                    <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} />
+                ) : null}
+            </div>
+
 
             {/* <div className="row d-flex justify-content-center">
-        <div className="mb-40 d-flex gap-3 flex-wrap justify-content-center" data-wow-duration="1.5s" data-wow-delay="0.2s">
-
-          {displayProduct && displayAll.length > 0 ? (
-            displayProduct.map((item, index) => (
-              <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
-                <div className="">
-                  {item.productUrlJson &&
-                    item.productUrlJson.split(',').map((url, imageIndex) => (
-                      <img className="" alt="" key={imageIndex} />
-                    ))}
-                </div>
-                <LiveAuctionCard
-                  image={
-                    item.productUrlJson
-                      ? item.productUrlJson.split(',')[0]
-                      : '/images/bg/noimage.png'
-                  }
-                  image2={
-                    item.productUrlJson
-                      ? item.productUrlJson.split(',')[1]
-                      : '/images/bg/noimage.png'
-                  }
-                  productName={item.productName}
-                  title={item.description}
-                  productId={item.id}
-                  startDate={item.startDate}
-                  endDate={item.endDate}
-                  auctionSetPrice={formatPrice(item.productPrice)}
-                  isAuctionEnded={item.isAuctionEnded}
-                />
-              </div>
-            ))
-          ) : (
-            displayAll && displayAll.data && displayAll.data.length > 0 ? (
-              displayAll.data.map((item, index) => (
-                <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
-                  <div className="">
-                    {item.productUrlJson &&
-                      item.productUrlJson.split(',').map((url, imageIndex) => (
-                        <img className="" alt="" key={imageIndex} />
-                      ))}
-                  </div>
-                  <LiveAuctionCard
-                    image={
-                      item.productUrlJson
-                        ? item.productUrlJson.split(',')[0]
-                        : '/images/bg/noimage.png'
-                    }
-                    image2={
-                      item.productUrlJson
-                        ? item.productUrlJson.split(',')[1]
-                        : '/images/bg/noimage.png'
-                    }
-                    productName={item.productName}
-                    title={item.description}
-                    productId={item.id}
-                    startDate={item.startDate}
-                    endDate={item.endDate}
-                    auctionSetPrice={formatPrice(item.productPrice)}
-                    isAuctionEnded={item.isAuctionEnded}
-                  />
-                </div>
-              ))
-            ) : (filtered && filtered.length > 0 ?
-              filtered.map((item, index) => (
-                <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
-                  <div className="">
-                    {item.productUrlJson &&
-                      item.productUrlJson.split(',').map((url, imageIndex) => (
-                        <img className="" alt="" key={imageIndex} />
-                      ))}
-                  </div>
-                  <LiveAuctionCard
-                    image={
-                      item.productUrlJson
-                        ? item.productUrlJson.split(',')[0]
-                        : '/images/bg/noimage.png'
-                    }
-                    image2={
-                      item.productUrlJson
-                        ? item.productUrlJson.split(',')[1]
-                        : '/images/bg/noimage.png'
-                    }
-                    productName={item.productName}
-                    title={item.description}
-                    productId={item.id}
-                    startDate={item.startDate}
-                    endDate={item.endDate}
-                    auctionSetPrice={formatPrice(item.productPrice)}
-                    isAuctionEnded={item.isAuctionEnded}
-                  />
-                </div>
-              )) : (
-                <p>No product found</p>
-              )
-            )
-          )}
-        </div>
-        <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} />
-      </div> */}
-            <div className="row d-flex justify-content-center">
                 <div className="mb-40 d-flex gap-3 flex-wrap justify-content-center" data-wow-duration="1.5s" data-wow-delay="0.2s">
                     {displayAll && displayAll.data && displayAll.data.length > 0 ? (
                         displayAll.data.map((item, index) => (
@@ -558,7 +523,7 @@ function ProductsWrap() {
                         )}
                 </div>
                 <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} />
-            </div>
+            </div> */}
 
 
 
@@ -581,3 +546,63 @@ function ProductsWrap() {
 }
 
 export default ProductsWrap
+
+{/* <div class="section-header2">
+        <hr class="section-divider section-divider-left" />
+        <h2 class="section-title">
+          {selectedCategory
+            ? `Latest Collections in ${selectedCategory}`
+            : 'Latest Collections'}
+        </h2>
+        <hr class="section-divider section-divider-right" />
+      </div>
+
+      <div className='container-fluid'>
+        <div className="row d-flex justify-content-center">
+          {isLoading ? (
+            <nav className='Login-loading'>
+              <img className='Login-spin-nav' src="./images/bg/elipsing.svg" alt="" />
+            </nav>
+          ) : (
+            <div className="mb-40 d-flex gap-3 flex-wrap justify-content-center" data-wow-duration="1.5s" data-wow-delay="0.2s">
+              {filtered && filtered.length > 0 ? (
+                filtered.map((item, index) => (
+                  <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
+                    <div className="">
+                      {item.productUrlJson &&
+                        item.productUrlJson.split(',').map((url, imageIndex) => (
+                          <img className="" src="" alt="" key={imageIndex} />
+                        ))}
+                    </div>
+
+                    <LiveAuctionCard
+                      image={
+                        item.productUrlJson
+                          ? item.productUrlJson.split(',')[0]
+                          : '/images/bg/noimage.png'
+                      }
+                      image2={
+                        item.productUrlJson
+                          ? item.productUrlJson.split(',')[1]
+                          : '/images/bg/noimage.png'
+                      }
+                      productName={item.productName}
+                      title={item.description}
+                      productId={item.id}
+                      startDate={item.startDate}
+                      endDate={item.endDate}
+                      auctionSetPrice={formatPrice(item.auctionSetPrice)}
+                      isAuctionEnded={item.isAuctionEnded}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p>No products found.</p>
+              )}
+            </div>
+          )}
+          {!isLoading ? (
+            <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} />
+          ) : null}
+        </div>
+      </div> */}

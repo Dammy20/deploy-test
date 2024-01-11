@@ -1,125 +1,169 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import '../LiveAuction.jsx/LiveAuction.css'
 
+import React from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { base_Url } from '../../../http/config'
+import LiveAuctionCard from '../LiveAuction/LiveAuctionCard'
+import Pagination from '../../common/Pagination'
+import { useRef } from 'react'
 
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 4,
-        slidesToSlide: 4 // optional, default to 1.
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 768 },
-        items: 3,
-        slidesToSlide: 3 // optional, default to 1.
-    },
-    mobile: {
-        breakpoint: { max: 767, min: 464 },
-        items: 2,
-        slidesToSlide: 1 // optional, default to 1.
-    }
-};
+function Slider({ filteredProducts, isLoading, valueInput }) {
+
+    const [searched, setSearched] = useState(false);
 
 
 
+    const isSearchButtonClicked = isLoading || valueInput.trim() !== '';
 
-const Slider = () => {
+    const formatPrice = (price) => {
+        const numericPrice = parseFloat(price);
 
-    const [selectCategory, setSelectedCategory] = useState([])
 
 
-    const fetchCategory = async () => {
-        try {
-            const response = await axios.get('http://gateway.peabux.com/auction/api/Category/GetAllCategory');
-            setSelectedCategory(response.data);
-            console.log(response.data)
-        } catch (error) {
-            console.error('Error fetching categories:', error);
+        if (!isNaN(numericPrice)) {
+            return numericPrice.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        } else {
+            return price;
         }
     };
-    useEffect(() => {
-        fetchCategory()
-    })
-    const categoryColors = ['purple', 'blue', 'green', 'red', 'gray'];
 
-    const categoryImageMapping = [
-        "./images/bg/download1.webp",
-        "./images/bg/download2.webp",
-        "./images/bg/download3.webp",
-        "./images/bg/download4.webp",
-        "./images/bg/download1.webp",
-        "./images/bg/download4.webp",
-    ];
+
+
     return (
-        <main>
-            <div className="contain-product   shadow  display-all bg-white ">
-
-
-                <div className="product-imgg mt-4">
-                    <img
-                        alt="nc-imgs"
-                        loading="lazy"
-                        height="250"
-                        decoding="async"
-                        data-nimg="1"
-                        className="img-object object-cover w-full h-full"
-                        src='./images/bg/lapop2.jpg'
-                        style={{ color: "transparent", zIndex: 1, borderRadius: "10px", width: "100%" }} // Set zIndex to 1 to ensure it's above the background
-                    />
-                </div>
-
-
-                <div className="awesome-collections mb-5" >
-                    <div>
-                        <h1 className="category-name ">Awesome Collection</h1>
-                        <p className="category-subname ">Scroll to view more categories.</p>
-
-                    </div>
-                    <Carousel
-                        responsive={responsive}
-                        autoPlay={false}
-                        swipeable={true}
-                        draggable={true}
-                        showDots={false}
-                        infinite={true}
-                        partialVisible={false}
-                        dotListClass="custom-dot-list-style"
-                    >
-                        {selectCategory.map((item, index) => {
-                            const imagePath = categoryImageMapping[index] || '';
-                            const categoryColor = categoryColors[index % categoryColors.length];
-
-                            return (
-                                <div key={index} className={`category ${categoryColor}`}>
-                                    <div style={{ padding: "0px" }} className="slidein" onClick={() => handleCategory(`${item.id}`)}>
-                                        <img src={imagePath} alt="movie" />
-                                    </div>
-                                    <div className="d-flex gap-3 mt-3">
-                                        <div style={{
-                                            width: "30px", height: '30px',
-                                            borderRadius: "100%",
-                                            backgroundColor: categoryColor
-                                        }}>
-
-                                        </div>
-                                        <div className="">
-                                            <h4 >{item.categoryName}</h4>
-                                        </div >
-
-
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </Carousel>
-                </div>
+        <div className="container-fluid">
+            <div style={{ marginTop: '-1px' }} class="section-header2 mt-4">
+                <hr class="section-divider section-divider-left" />
+                <h2 class="section-title">
+                    {isSearchButtonClicked && filteredProducts.length === 0
+                        ? 'No product found'
+                        : filteredProducts.length > 0
+                            ? `Showing results for search "${valueInput}"`
+                            : ''}
+                </h2>
+                <hr class="section-divider section-divider-right" />
             </div>
+            <div className="row d-flex justify-content-center">
+                {isLoading ? (
+                    <nav className="Login-loading">
+                        <img className="Login-spin-nav" src="./images/bg/elipsing.svg" alt="" />
+                    </nav>
+                ) : (
+                    <div
+                        className="mb-40 d-flex gap-3 flex-wrap justify-content-center"
+                        data-wow-duration="1.5s"
+                        data-wow-delay="0.2s"
+                    >
+                        {filteredProducts && filteredProducts.length > 0 ? (
+                            filteredProducts.map((item, index) => (
+                                <div
+                                    className="eachAuction2 wow fadeInUp"
+                                    data-wow-duration="1.5s"
+                                    data-wow-delay="1s"
+                                    key={index}
+                                >
+                                    <div className="">
+                                        {item.productUrlJson &&
+                                            item.productUrlJson.split(',').map((url, imageIndex) => (
+                                                <img className="" src="" alt="" key={imageIndex} />
+                                            ))}
+                                    </div>
 
-        </main>
-    );
+                                    <LiveAuctionCard
+                                        image={
+                                            item.productUrlJson
+                                                ? item.productUrlJson.split(',')[3]
+                                                : '/images/bg/noimage.png'
+                                        }
+                                        image2={
+                                            item.productUrlJson
+                                                ? item.productUrlJson.split(',')[1]
+                                                : '/images/bg/noimage.png'
+                                        }
+                                        productName={item.productName}
+                                        title={item.description}
+                                        productId={item.id}
+                                        startDate={item.startDate}
+                                        endDate={item.endDate}
+                                        auctionSetPrice={formatPrice(item.auctionSetPrice)}
+                                        isAuctionEnded={item.isAuctionEnded}
+                                        createdBy={item.createdBy}
+                                    />
+                                </div>
+                            ))
+                        ) : null}
+                    </div>
+                )}
+            </div>
+        </div>
+        // <div className='container-fluid'>
+        //     <div style={{ marginTop: "-1px" }} class="section-header2 mt-4">
+        //         <hr class="section-divider section-divider-left" />
+        //         <h2 class="section-title">
+        //             {filteredProducts.length > 0 ? `Showing results for search "${valueInput}"`
+        //                 : ''}
+        //         </h2>
+        //         <hr class="section-divider section-divider-right" />
+        //     </div>
+        //     <div className="row d-flex justify-content-center">
+        //         {isLoading ? (
+        //             <nav className='Login-loading'>
+        //                 <img className='Login-spin-nav' src="./images/bg/elipsing.svg" alt="" />
+        //             </nav>
+        //         ) : (
+        //             <div className="mb-40 d-flex gap-3 flex-wrap justify-content-center" data-wow-duration="1.5s" data-wow-delay="0.2s">
+        //                 {filteredProducts && filteredProducts.length > 0 && (
+        //                     filteredProducts.map((item, index) => (
+        //                         <div className="eachAuction2 wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="1s" key={index}>
+        //                             <div className="">
+        //                                 {item.productUrlJson &&
+        //                                     item.productUrlJson.split(',').map((url, imageIndex) => (
+        //                                         <img className="" src="" alt="" key={imageIndex} />
+        //                                     ))}
+        //                             </div>
+
+        //                             <LiveAuctionCard
+        //                                 image={
+        //                                     item.productUrlJson
+        //                                         ? item.productUrlJson.split(',')[0]
+        //                                         : '/images/bg/noimage.png'
+        //                                 }
+        //                                 image2={
+        //                                     item.productUrlJson
+        //                                         ? item.productUrlJson.split(',')[1]
+        //                                         : '/images/bg/noimage.png'
+        //                                 }
+        //                                 productName={item.productName}
+        //                                 title={item.description}
+        //                                 productId={item.id}
+        //                                 startDate={item.startDate}
+        //                                 endDate={item.endDate}
+        //                                 auctionSetPrice={formatPrice(item.auctionSetPrice)}
+        //                                 isAuctionEnded={item.isAuctionEnded}
+        //                             />
+        //                         </div>
+        //                     ))
+
+        //                 )}
+        //                 {/* {
+        //                     filteredProducts.length < 0 &&
+
+        //                     <p>No products found.</p>
+
+        //                 } */}
+        //             </div>
+        //         )}
+
+
+        //         {/* {!isLoading ? (
+        //             <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} />
+        //         ) : null} */}
+        //     </div>
+        // </div>
+
+    )
 }
 
-export default Slider;
+export default Slider

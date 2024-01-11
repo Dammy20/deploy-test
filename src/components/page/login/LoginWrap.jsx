@@ -2,15 +2,18 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './login.css'
 import Swal from 'sweetalert2'
+
 import { useEffect } from 'react'
 import { GoogleLogin } from '@react-oauth/google'
 
 
 import { useHistory } from 'react-router-dom'
 
-import axios from 'axios'
+import axiosInstance from '../../../store/axiosinstance'
 import { AuthContext } from '../../common/AuthProvider'
 import { useGoogleLogin, googleLogout } from '@react-oauth/google'
+import { Base_Url } from '../../../http/config'
+import { toast } from 'react-toastify'
 
 function LoginWrap() {
   const Authstate = useContext(AuthContext)
@@ -27,52 +30,7 @@ function LoginWrap() {
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log('Login Failed:', error)
-  });
-  useEffect(
-    () => {
-      if (user) {
-        axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json'
-          }
-        })
-          .then((res) => {
-            setProfile(res.data);
-            Swal.fire({
-              text: "Login successfully",
-              icon: 'success',
-              showConfirmButton: false,
-              timer: 2500,
-              showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-              },
-              hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-              }
-            })
-            Authstate.setState({
-              googleEmail: res.data.email,
-              googleName: res.data.name,
 
-            })
-            history.push("./dashboard")
-
-            console.log(res.data)
-          })
-          .catch((err) => console.log(err));
-      }
-    },
-    [user]
-  );
-
-  // const logOut = () => {
-  //   googleLogout();
-  //   setProfile(null);
-  // };
   const handleEyeIcon = () => {
     if (openEye === false || openEye === 0) {
       setOpenEye(1)
@@ -86,28 +44,32 @@ function LoginWrap() {
   const handleChanges = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value })
   }
-  const baseurl = "http://gateway.peabux.com/authentication/api/Account"
-  const submitAll = async (event) => {
-    event.preventDefault()
 
+  const submitAll = async (event) => {
     if (values.email === "" || values.password === "") {
+      toast.error("Please fill in your details")
       setErrorEmail("Enter your email")
       setErrorPassword("Enter your password")
+      return
     }
+    event.preventDefault()
+
+
 
 
     let data = {
-      fullName: values.fullname,
+
       email: values.email,
       password: values.password,
-      confirmPassword: values.confirmPassword,
+
     }
 
 
     try {
       setIsLoading(true)
-      const response = await axios.post(baseurl, data)
+      const response = await axiosInstance.post(`${Base_Url}/authentication/api/Account`, data)
       console.log(response)
+      console.log(response.data.user.firstName)
       if (String(response.data.message).startsWith("Success")) {
         Swal.fire({
           text: response.data.message,
@@ -127,13 +89,17 @@ function LoginWrap() {
         localStorage.setItem("access_token", response.data.jwtToken)
         localStorage.setItem("refresh_token", response.data.refreshToken.tokenString)
         localStorage.setItem("userId", JSON.stringify(response.data.user.userId))
+        localStorage.setItem("uerdetails", JSON.stringify(Authstate.setState))
+        console.log(response.data.email)
         Authstate.setState({
           email: response.data.email,
-          fullname: response.data.user.fullName,
+          firstName: response.data.user.firstName,
+          lastName: response.data.user.lastName,
           message: response.data.message,
           token: response.data.refreshToken.tokenString
 
         })
+
         values.email = ""
         values.password = ""
         history.push("/dashboard")

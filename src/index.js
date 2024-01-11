@@ -10,8 +10,10 @@ import MainLayout from "./components/layout/MainLayout";
 import Contact from "./components/page/contact/Contact";
 
 import ErrorPage from "./components/page/error/ErrorPage";
+import LinkAccount from "./components/page/linkAccount/LinkAccount"
 import SignUp from "./components/page/signUp/SignUp";
 import Faq from "./components/page/faq/Faq";
+import WalletAccount from "./components/page/walletAccount/WalletAccount"
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CreateProduct from "./components/page/createproduct/CreateProduct";
 import Login from "./components/page/login/Login";
@@ -19,7 +21,7 @@ import AuctionDetails from "./components/page/auctionDetails/AuctionDetails";
 import Dashboard from "./components/page/dashboard/Dashboard";
 import Blog from "./components/page/blog/Blog";
 import BlogDetails from "./components/page/BlogDetails/BlogDetails";
-import LiveAuction from "./components/page/LiveAuction.jsx/LiveAuction";
+import LiveAuction from "./components/page/LiveAuction/LiveAuction";
 import Products from "./components/page/Products.jsx/ProductsWrap";
 import HowItWork from "./components/page/howItWork/HowItWork";
 import About from "./components/page/about/About";
@@ -28,10 +30,14 @@ import Layout3 from "./components/layout/Layout3";
 import Change from './components/page/change/Change'
 import Wallet from './components/page/wallet/Wallet'
 import Merchant from "./components/page/joinMerchant/Merchant";
+import CreateWalletAccount from "./components/page/createWalletAccount/CreateWalletAccount"
 import { AuthContext } from "./components/common/AuthProvider";
 // import 'react-lazy-load-image-component/src/effects/blur.css';
 import "./index.css"
 import AuthProvider from "./components/common/AuthProvider";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import ComingSoon from "./components/page/comingsoon/ComingSoonWrap";
 
 //Default Warniing Error Hide
 // console.log = console.warn = console.error = () => {};
@@ -81,8 +87,28 @@ function Root() {
         />
          <Route
           exact
+          path={`${process.env.PUBLIC_URL}/createwalletaccount`}
+          component={CreateWalletAccount}
+        />
+        <Route
+          exact
+          path={`${process.env.PUBLIC_URL}/linkaccount`}
+          component={LinkAccount}
+        />
+         <Route
+          exact
           path={`${process.env.PUBLIC_URL}/login`}
           component={Login}
+        />
+         <Route
+          exact
+          path={`${process.env.PUBLIC_URL}/walletaccount`}
+          component={WalletAccount}
+        />
+         <Route
+          exact
+          path={`${process.env.PUBLIC_URL}/comingsoon`}
+          component={ComingSoon}
         />
       <Layout>
         <Route
@@ -111,7 +137,8 @@ function Root() {
           exact
           path={`${process.env.PUBLIC_URL}/auction-details`}
           component={AuctionDetails}
-        />
+            />
+           
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/dashboard`}
@@ -138,6 +165,7 @@ function Root() {
           path={`${process.env.PUBLIC_URL}/product`}
           component={LiveAuction}
             />
+           
             <Route
           exact
           path={`${process.env.PUBLIC_URL}/products`}
@@ -167,7 +195,8 @@ export default Root;
 
 ReactDOM.render(
   <React.StrictMode>
-   
+    <Provider store={store}>
+      
       <AuthProvider>
          <UserProvider>
       <GoogleOAuthProvider clientId="653426009511-opa32q6phtjqpqmtm0lsjnei8d53vmd7.apps.googleusercontent.com">
@@ -175,6 +204,7 @@ ReactDOM.render(
           </GoogleOAuthProvider>
           </UserProvider>
       </AuthProvider>
+   </Provider>
       
   </React.StrictMode>,
   document.getElementById("root")

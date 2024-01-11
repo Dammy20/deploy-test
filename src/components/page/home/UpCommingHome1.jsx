@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Counter from '../../common/Counter';
-import axios from 'axios';
+import axiosInstance from '../../../store/axiosinstance';
 import { base_Url } from '../../../http/config';
 import TimeCounter from '../../common/TimeCounter'
 import "swiper/css/autoplay";
@@ -14,6 +14,7 @@ import SwiperCore, {
 SwiperCore.use([Navigation, Autoplay]);
 function UpCommingHome1() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [started, setStarted] = useState([])
   const userId = localStorage.getItem("userId")
   // const [started, setStarted] = useState([])
@@ -25,7 +26,7 @@ function UpCommingHome1() {
 
   const displayAllProducts = async () => {
     try {
-      const response = await axios.get(`${base_Url}/api/Product/GetAllProductApproved?pageNumber=1&pageSize=100`)
+      const response = await axiosInstance.get(`${base_Url}/api/Product/GetAllProductApproved?pageNumber=1&pageSize=100`)
       console.log(response.data)
       setProducts(response.data.data);
     } catch (error) {
@@ -98,8 +99,74 @@ function UpCommingHome1() {
 
             </div>
           </div>
-
           <div className="row d-flex justify-content-center">
+            {isLoading ? (
+              <div className='Login-loading'>
+                <img className='Login-spin-nav' src="./images/bg/elipsing.svg" alt="" />
+              </div>
+            ) : (
+              <Swiper className="swiper upcoming-slider" {...upcomingSlider}>
+                <div className="swiper-wrapper">
+                  {filteredProducts.map((item, index) => (
+                    <SwiperSlide key={index} className="swiper-slide">
+                      <div className="eg-card c-feature-card1 wow animate fadeInDown" data-wow-duration="1.5s" data-wow-delay="0.2s">
+                        <Link to={'/product'} className="auction-img">
+                          <div className="">
+                            {item.productUrlJson &&
+                              item.productUrlJson.split(',')[0] && (
+                                <img className=''
+                                  src={item.productUrlJson.split(',')[0]}
+                                  alt="Product Image"
+                                />
+                              )}
+                            <img
+                              className=''
+                              src="/images/bg/noimage.png"
+                              alt="Default Image"
+                            />
+                          </div>
+                          <div className="auction-timer2 gap-lg-3 gap-md-2 gap-1" id="timer7">
+                            {/* Timer Component */}
+                          </div>
+                          <div className="author-area2">
+                            <div className="author-emo">
+                              <img
+                                alt="images"
+                                src={process.env.PUBLIC_URL + "/images/icons/smile-emo.svg"}
+                              />
+                            </div>
+                          </div>
+                        </Link>
+                        <div className="c-feature-content">
+                          <div className="c-feature-category">{item.productName}</div>
+                          <Link to={`${process.env.PUBLIC_URL}/auction-details`} onClick={scrollTop}>
+                            <h4>{item.productName}</h4>
+                          </Link>
+                          <p>Bidding Price : <span>{item.auctionSetPrice}</span></p>
+                          <div className="auction-card-bttm">
+                            <Link to={`${process.env.PUBLIC_URL}/product`} onClick={scrollTop} className="eg-btn btn--primary btn--sm">View Details</Link>
+                            <div className="share-area">
+                              <ul className="social-icons d-flex">
+                                <li><Link to={"#"}><i className="bx bxl-facebook" /></Link></li>
+                                <li><Link to={"#"}><i className="bx bxl-twitter" /></Link></li>
+                                <li><Link to={"#"}><i className="bx bxl-pinterest" /></Link></li>
+                                <li><Link to={"#"}><i className="bx bxl-instagram" /></Link></li>
+                              </ul>
+                              <div>
+                                <div className="share-btn"><i className="bx bxs-share-alt" /></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </div>
+              </Swiper>
+            )}
+          </div>
+
+          {/* <div className="row d-flex justify-content-center">
             <Swiper {...upcomingSlider} className="swiper upcoming-slider">
               <div className="swiper-wrapper">
                 {filteredProducts.map((item, index) => (
@@ -134,9 +201,7 @@ function UpCommingHome1() {
                               src={process.env.PUBLIC_URL + "/images/icons/smile-emo.svg"}
                             />
                           </div>
-                          {/* <div className="author-name">
-                            <span>by @robatfox</span>
-                          </div> */}
+                        
                         </div>
                       </Link>
                       <div className="c-feature-content">
@@ -170,7 +235,7 @@ function UpCommingHome1() {
               </div>
             </Swiper>
 
-          </div>
+          </div> */}
         </div>
       </div>
     </>

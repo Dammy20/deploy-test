@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+import axiosInstance from "../../../store/axiosinstance";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
-import { RiGalleryUploadLine } from 'react-icons/ri'
-import { GiJeweledChalice } from 'react-icons/gi'
+import { RiGalleryUploadLine } from 'react-icons/ri';
+import { GiJeweledChalice } from 'react-icons/gi';
+import { SiStmicroelectronics } from 'react-icons/si';
+import { MdSportsScore } from 'react-icons/md';
+import { MdNoPhotography } from 'react-icons/md'
+import { BsHouseHeartFill } from 'react-icons/bs'
+import { RiGalleryFill } from 'react-icons/ri'
+import { GiGoldShell } from 'react-icons/gi'
 
-import { MdSportsScore } from 'react-icons/md'
-import { SiStmicroelectronics } from 'react-icons/si'
-import { HiOutlinePhotograph } from 'react-icons/hi'
-import { RiRadio2Fill } from "react-icons/ri"
 import { base_Url } from "../../../http/config";
 import axios from "axios";
 import './hero.css'
@@ -17,6 +20,8 @@ import './hero.css'
 
 function HeroBanner() {
   const [displayCategory, setDisplayCategory] = useState([])
+  const [searchProduct, setSearchProduct] = useState([])
+
   function encodeProductId(productId) {
     return btoa(productId);
   }
@@ -26,7 +31,7 @@ function HeroBanner() {
   }, [])
   const fetchCategory = async () => {
     try {
-      const response = await axios.get('http://gateway.peabux.com/auction/api/Category/GetAllCategory')
+      const response = await axiosInstance.get(`${base_Url}/api/Category/GetAllCategory`)
       console.log(response.data)
       setDisplayCategory(response.data)
     } catch (error) {
@@ -35,14 +40,17 @@ function HeroBanner() {
   }
   const getCategoryIcon = (categoryName) => {
     const categoryIcons = {
-      "Category 1": RiGalleryUploadLine,
-      "Category 2": HiOutlinePhotograph,
-      "Category 3": SiStmicroelectronics,
-      "Category 4": GiJeweledChalice,
-      "Category 5": MdSportsScore,
+      "Art": RiGalleryFill,
+      "Photography": MdNoPhotography,
+      "Electronics": SiStmicroelectronics,
+      "Jewelry": GiJeweledChalice,
+      "Sport": MdSportsScore,
+      "Household": BsHouseHeartFill,
+      "Luxury": GiGoldShell,
+
     };
 
-    return categoryIcons[categoryName] || RiGalleryUploadLine;
+    return categoryIcons[categoryName] || GiJeweledChalice;
   };
 
   return (
@@ -55,18 +63,19 @@ function HeroBanner() {
 
               <div className="card-body" >
                 {displayCategory && displayCategory.map((item, index) => {
+                  console.log('Category Name:', item.categoryName);
                   const IconComponent = getCategoryIcon(item.categoryName);
                   const encodedProductId = encodeProductId(item.id);
                   return (
                     <div key={index} className="d-flex gap-2  mt-3">
                       <IconComponent className="icon-all" />
-                      {/* <img src={item.categoryImage} alt="" /> */}
 
                       <Link to={`/products?auctionId=${encodedProductId}`} className="category-title">{item.categoryName}</Link>
                     </div>
                   )
 
                 })}
+
 
               </div>
 

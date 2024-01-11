@@ -5,8 +5,10 @@ import Counter from '../../common/Counter'
 import moment from 'moment-timezone'
 import axios from 'axios'
 import { UserProvider } from '../../common/UserContext'
-import { base_Url } from '../../../http/config'
+import { Base_Url, base_Url } from '../../../http/config'
 import { UserContext } from '../../common/UserContext'
+import axiosInstance from '../../../store/axiosinstance'
+import AuctionDetailsInfo from './AuctionDetailsInfo'
 function AuctionDetailsTab({ description }) {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" })
   const location = useLocation()
@@ -19,7 +21,13 @@ function AuctionDetailsTab({ description }) {
   const [hoursDate, setHoursDate] = useState(null)
   const [startDate, setStartDate] = useState(null)
   const [biddingId, setBiddingId] = useState([])
+  const [latestBid, setLatestBid] = useState([])
   const [bidding, setBidding] = useState([])
+  const [userAmount, setUserAmount] = useState([])
+  const searchParams = new URLSearchParams(location.search);
+  const encodedProductId = searchParams.get('productId');
+
+  const productId = atob(encodedProductId);
   const { userProfileImage } = useContext(UserContext)
 
 
@@ -27,28 +35,42 @@ function AuctionDetailsTab({ description }) {
   useEffect(() => {
     display()
     biddingUser()
+    handleLatestBid()
 
-  }, [])
+
+  }, [productId])
+
+  const handleLatestBid = async () => {
+    try {
+      const response = await axiosInstance.get(`${Base_Url}/auction/api/Bidding/GetLatestBiddingPriceByProductId?ProductId=${productId}`)
+      console.log(response.data)
+      setLatestBid(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const biddingUser = async () => {
     try {
 
-      const response = await axios.get(`${base_Url}/api/Bidding/GetAllBiddingByUsers?UserId=${userId}`);
-      const bids = response.data;
+      const response = await axios.get(`${Base_Url}/auction/api/Bidding/GetAllBiddedUsersByproductId?ProductId=${productId}`);
+      console.log(response.data)
+      setBid(response.data)
+      // const bids = response.data;
 
 
-      const bidsWithProductNamesPromises = bids.map(async (bid) => {
-        const productResponse = await axios.get(`${base_Url}/api/Product/ExistingProduct?Id=${bid.productId}`);
-        console.log(bid.productId)
-        const productDetails = productResponse.data[0];
-        return {
-          ...bid,
-          productName: productDetails.productName
-        };
-      });
+      // const bidsWithProductNamesPromises = bids.map(async (bid) => {
+      //   const productResponse = await axios.get(`${Base_Url}/auction/api/Product/ExistingProduct?Id=${bid.productId}`);
+      //   console.log(bid.productId)
+      //   const productDetails = productResponse.data[0];
+      //   return {
+      //     ...bid,
+      //     productName: productDetails.productName
+      //   };
+      // });
 
-      const bidsWithProductNames = await Promise.all(bidsWithProductNamesPromises);
+      // const bidsWithProductNames = await Promise.all(bidsWithProductNamesPromises);
 
-      setBid(bidsWithProductNames);
+      // setBid(bidsWithProductNames);
       console.log(bid)
     } catch (error) {
       console.log(error);
@@ -57,28 +79,11 @@ function AuctionDetailsTab({ description }) {
     }
   };
 
-  const getTimeAgo = (timestamp) => {
-    const date = new Date(timestamp);
-    const currentDate = new Date();
-    const timeDiff = currentDate - date;
-    const secondsDiff = Math.floor(timeDiff / 1000);
-    const minutesDiff = Math.floor(secondsDiff / 60);
-    const hoursDiff = Math.floor(minutesDiff / 60);
-    const daysDiff = Math.floor(hoursDiff / 24);
 
-    if (secondsDiff < 60) {
-      return `${secondsDiff} ${secondsDiff === 1 ? 'second' : 'seconds'} ago`;
-    } else if (minutesDiff < 60) {
-      return `${minutesDiff} ${minutesDiff === 1 ? 'minute' : 'minutes'} ago`;
-    } else if (hoursDiff < 24) {
-      return `${hoursDiff} ${hoursDiff === 1 ? 'hour' : 'hours'} ago`;
-    } else {
-      return `${daysDiff} ${daysDiff === 1 ? 'day' : 'days'} ago`;
-    }
-  };
+
+
   const formatDateTime = (timestamp) => {
     const date = new Date(timestamp);
-    // Adjust the date to your system's time zone
     const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 
     const options = {
@@ -87,11 +92,15 @@ function AuctionDetailsTab({ description }) {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false, // Use 24-hour format
+      hour12: true, // Use 12-hour format with AM/PM
     };
 
-    return adjustedDate.toLocaleDateString('en-US', options);
+    const dateTimeString = adjustedDate.toLocaleDateString('en-US', options);
+
+    return dateTimeString;
   };
+
+
 
 
 
@@ -123,8 +132,9 @@ function AuctionDetailsTab({ description }) {
                 <button className="nav-link details-tab-btn" id="pills-bid-tab" data-bs-toggle="pill" data-bs-target="#pills-bid" type="button" role="tab" aria-controls="pills-bid" aria-selected="false">Biding History</button>
               </li>
               <li className="nav-item" role="presentation">
-                {/* <button className="nav-link details-tab-btn" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Other Auction</button> */}
+                <button className="nav-link details-tab-btn" id="pills-price-tab" data-bs-toggle="pill" data-bs-target="#pills-price" type="button" role="tab" aria-controls="pills-price" aria-selected="false">Latest Bidding Price</button>
               </li>
+
             </ul>
             <div className="tab-content" id="pills-tabContent">
               <div className="tab-pane fade show active wow fadeInUp" data-wow-duration="1.5s" data-wow-delay=".2s" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -134,6 +144,12 @@ function AuctionDetailsTab({ description }) {
               </div>
               <div className="tab-pane fade" id="pills-bid" role="tabpanel" aria-labelledby="pills-bid-tab">
                 <div className="bid-list-area">
+                  {bid && bid.length > 0 ? (
+                    <div style={{ gap: "32rem" }} className='d-flex mt-4 '>
+                      <h6 style={{ paddingLeft: "2rem" }} className='font-weight-bolder'>Previous Biddings</h6>
+                      <h6 className='font-weight-bolder'>BiddingDates</h6>
+                    </div>
+                  ) : null}
                   <div>
                     {bid.map((item, index) => (
                       <ul className="bid-list" key={index}>
@@ -143,13 +159,15 @@ function AuctionDetailsTab({ description }) {
                               <div className="bidder-area">
                                 <div className="bidder-content">
                                   <Link to={"#"}><h6>{item.productName}</h6></Link>
-                                  <p>{item.priceRaised}</p>
+
+                                  <h6 style={{ color: "#090892" }}>₦{item.priceRaised}</h6>
                                 </div>
                               </div>
                             </div>
                             <div className="col-5 text-end">
                               <div className="bid-time">
-                                <p>{formatDateTime(item.biddingDate)} </p>
+
+                                <p style={{ color: "#090892" }}>{formatDateTime(item.biddingDate)} </p>
                               </div>
                             </div>
                           </div>
@@ -159,59 +177,18 @@ function AuctionDetailsTab({ description }) {
                   </div>
                 </div>
               </div>
-              <div className="tab-pane fade " id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <div className="row d-flex justify-content-center">
-                  <div className="col-lg-6 col-md-6 col-sm-10 ">
-                    {Array.isArray(createdUser) && createdUser.map((item, index) => (
-                      <div className="eg-card auction-card1  " key={index}>
-                        <div className="auction-img mt-4 d-flex">
-                          {item.productUrlJson && item.productUrlJson.split(',').length > 0 && (
-                            <img
-                              className=''
-                              src={item.productUrlJson.split(',')[0]}
-                              alt={`Product Image 0`}
-                            />
-                          )}
-                          {!item.productUrlJson && (
-                            <img
-                              alt="images"
-                              src={process.env.PUBLIC_URL + "/images/bg/noimage.png"}
-                            />
-                          )}
+              <div className="tab-pane fade " id="pills-price" role="tabpanel" aria-labelledby="pills-price-tab">
+                <div className='bid-list-area'>
 
-                          <div className="author-area">
-                            <div className="author-emo">
-                              <img alt="imagess" src={process.env.PUBLIC_URL + "/images/icons/smile-emo.svg"} />
-                            </div>
-                            <div className="author-name">
-                              <span>by @robatfox</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="auction-content">
-                          {/* <h4><Link to={`${process.env.PUBLIC_URL}/live-auction`} onClick={scrollTop}>{item.auctionSetPrice}</Link></h4> */}
-                          <p>Bidding Price : <span>{item.auctionSetPrice}</span> </p>
-                          <span>{item.description}</span>
-                          <div className="auction-card-bttm">
-                            <Link to={`${process.env.PUBLIC_URL}/auction-details`} onClick={scrollTop} className="eg-btn btn--primary btn--sm">Place a Bid</Link>
-                            <div className="share-area">
-                              <ul className="social-icons d-flex">
-                                <li><Link to={"#"}><i className="bx bxl-facebook" /></Link></li>
-                                <li><Link to={"#"}><i className="bx bxl-twitter" /></Link></li>
-                                <li><Link to={"#"}><i className="bx bxl-pinterest" /></Link></li>
-                                <li><Link to={"#"}><i className="bx bxl-instagram" /></Link></li>
-                              </ul>
-                              <div>
-                                <Link to={"#"} className="share-btn"><i className="bx bxs-share-alt" /></Link>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <ul className='bid-list text-danger p-2 font-weight-bolder ' style={{ fontWeight: "bolder", paddingTop: "5px" }}>
+                    <li>{latestBid.message}</li>
+                  </ul>
+
+
+
                 </div>
               </div>
+
 
 
             </div>

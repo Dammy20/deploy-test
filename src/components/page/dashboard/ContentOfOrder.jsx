@@ -1,6 +1,7 @@
 import React from 'react'
-import axios from 'axios';
+import axiosInstance from '../../../store/axiosinstance';
 import { useState, useEffect } from 'react';
+import baseURL from '../../../store/axiosinstance'
 import { base_Url } from '../../../http/config';
 import { Link } from 'react-router-dom'
 import Select from 'react-select';
@@ -11,7 +12,6 @@ function ContentOfOrder() {
   const [currentPage, setCurrentPage] = useState(1);
   const [productContain, setProductContain] = useState([])
   const [currentEntries, setCurrentEntries] = useState([]);
-  const [updatedCurrentEntries, setUpdatedCurrentEntries] = useState([]);
   const [entriesPerPage] = useState(10);
   const [prodName, setProdName] = useState([])
   const [prodId, setProdId] = useState([])
@@ -23,7 +23,7 @@ function ContentOfOrder() {
 
   const displayBidding = async () => {
     try {
-      const response = await axios.get(`${base_Url}/api/Bidding/GetAllBiddingByUsers?UserId=${userId}`);
+      const response = await axiosInstance.get(`${base_Url}/api/Bidding/GetAllBiddingByUsers?UserId=${userId}`);
       console.log(response.data);
 
       if (response.data) {
@@ -32,14 +32,14 @@ function ContentOfOrder() {
         setProdId(allProductIds);
 
         const productDetailsPromises = allProductIds.map(productId =>
-          axios.get(`${base_Url}/api/Product/ExistingProduct?Id=${productId}`)
+          axiosInstance.get(`${base_Url}/api/Product/ExistingProduct?Id=${productId}`)
         );
 
         const productDetailsResponses = await Promise.all(productDetailsPromises);
         const productDetailsData = productDetailsResponses.map(response => response.data[0]); // Extract the product details from the response array.
         console.log(productDetailsData);
 
-        // Now you have an array of details for all biddings.
+
         const biddingsWithProductNames = response.data.map((bidding, index) => ({
           ...bidding,
           productName: productDetailsData[index].productName,
@@ -69,21 +69,27 @@ function ContentOfOrder() {
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
+
   const formatDateTime = (timestamp) => {
     const date = new Date(timestamp);
     const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 
     const options = {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
       hour12: false,
     };
 
-    return adjustedDate.toLocaleDateString('en-US', options);
+    const timeString = adjustedDate.toLocaleTimeString('en-US', options);
+    const hour = timeString.split(':')[0];
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+
+    return `${timeString} ${ampm}`;
   };
+
+
+
+
 
 
 

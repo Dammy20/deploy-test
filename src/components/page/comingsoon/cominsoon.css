@@ -1,0 +1,41 @@
+.coming-image {
+    width: 47%;
+
+}
+
+.btnn-coming {
+    margin-top: -15rem !important;
+
+}
+
+
+@media only screen and (max-width: 600px) {}
+
+.coming-image {
+    width: 55%;
+}
+
+.btnn-coming {
+    margin-top: 2rem;
+}
+
+
+@media only screen and (min-width: 600px) {}
+
+.coming-image {
+    width: 30%;
+}
+
+.btn-danger {
+    margin-top: 3rem;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+.coming-image {
+    width: 30%;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}

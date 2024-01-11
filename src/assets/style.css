@@ -102,6 +102,8 @@ i.bx {
   vertical-align: middle;
 }
 
+.nav
+
 /*================================================
 2. Mixins Css
 =================================================*/
@@ -216,6 +218,17 @@ i.bx {
   position: relative;
   z-index: 1;
   white-space: nowrap;
+}
+
+.nav-header {
+  display: flex;
+  gap: 15rem;
+
+}
+
+.nav-logo {
+  width: 20%;
+  /* margin-top: 23px; */
 }
 
 .btn--primary::before {
@@ -363,6 +376,11 @@ i.bx {
   transition: all 0.52s ease;
 }
 
+/* .image-view { */
+/* width: 20%; */
+/* padding-left: 4rem; */
+/* } */
+
 .btn--primary3-outline:hover {
   background: #2e2ea6;
   color: #fff;
@@ -378,6 +396,14 @@ i.bx {
 @media (max-width: 767px) {
   .btn--lg {
     padding: 12px 27px;
+  }
+
+  .nav-header {
+    display: block;
+  }
+
+  .nav-logo {
+    width: 70%;
   }
 }
 
@@ -791,6 +817,23 @@ i.bx {
   right: 0;
 }
 
+/* //wallet Account */
+
+.wallet-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.e-wallet {
+  padding-left: 5.5rem;
+  margin-top: 10px;
+
+}
+
+.e-image {
+  margin-top: -8rem;
+}
+
 /*=======================================
   3. search area start
 =======================================*/
@@ -820,6 +863,16 @@ i.bx {
 @media (max-width: 767px) {
   .mobile-search {
     padding: 20px 20px;
+  }
+
+  .e-wallet {
+    padding-left: 1rem;
+    margin-top: 10px;
+
+  }
+
+  .e-image {
+    margin-top: -2rem;
   }
 }
 
@@ -942,6 +995,15 @@ i.bx {
   .topbar {
     display: none;
     visibility: hidden;
+  }
+
+  .nav-header {
+    display: block;
+  }
+
+  .nav-logo {
+    width: 70%;
+    /* margin-top: 23px; */
   }
 }
 
@@ -1132,15 +1194,31 @@ header.style-1 {
   position: relative;
   top: 0;
   z-index: 99;
-  padding: 0px 60px 0px 0px;
+  /* padding: 0px 60px 0px 0px; */
+
+
+
+
+
+
+
+
+
+
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 10rem;
+  /* justify-content: space-between; */
+  /* align-items: center; */
 }
 
 @media (min-width: 1200px) and (max-width: 1399px) {
   header.style-1 {
-    padding: 0px 30px 0px 0px;
+    padding: 0px 150px 0px 0px;
+  }
+
+  .nav-logo {
+    width: 40%;
   }
 }
 
@@ -1148,12 +1226,38 @@ header.style-1 {
   header.style-1 {
     padding: 0px 30px 0px 0px;
   }
+
+  .e-wallet {
+    padding-left: 2rem;
+    margin-top: 10px;
+
+  }
+
+  .e-image {
+    margin-top: 2rem;
+  }
+
+  /* .nav-logo {
+    width: 70%;
+    margin-top: 23px;
+  } */
 }
 
 @media (max-width: 991px) {
   header.style-1 {
-    padding: 0px 30px 0px 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     top: 0;
+  }
+
+  .e-wallet {
+    padding-left: 2rem;
+    margin-top: 10px;
+
+  }
+
+  .e-image {
+    margin-top: 1rem;
   }
 }
 
@@ -1190,8 +1294,8 @@ header.style-1.sticky {
 
 header.style-1 .nav-right .hotline {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+  align-items: end;
   margin-right: 40px;
 }
 
@@ -1243,13 +1347,18 @@ header.style-1 .nav-right .search-btn .bi {
   padding: 25px 60px;
 } */
 @media (min-width: 1200px) and (max-width: 1399px) {
-  header.style-1 .header-logo {
+  /* header.style-1 .header-logo {
     padding: 25px 30px;
+  } */
+
+  .nav-logo {
+    width: 40%;
   }
 
   header.style-1 .main-menu .menu-list {
     margin-bottom: 0;
     padding-right: 30px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
 
@@ -1304,6 +1413,7 @@ header.style-1 .header-btn:hover a {
 
 header.style-1 .main-menu .menu-list {
   margin-bottom: 0;
+  margin-top: 5px;
   /* margin-right: 50px; */
   display: flex;
   align-items: center;
@@ -1461,11 +1571,13 @@ header.style-1 .main-menu .menu-list>li .submenu>li a:last-child {
   border-bottom: unset;
 }
 
+/* 
 header.style-1 .main-menu .menu-list>li.menu-item-has-children {
   position: relative;
   z-index: 1;
-  padding-right: 20px;
-}
+
+
+} */
 
 @media (max-width: 991px) {
   header.style-1 .main-menu .menu-list>li.menu-item-has-children {
@@ -1473,7 +1585,7 @@ header.style-1 .main-menu .menu-list>li.menu-item-has-children {
   }
 }
 
-header.style-1 .main-menu .menu-list>li.menu-item-has-children::after {
+/* header.style-1 .main-menu .menu-list>li.menu-item-has-children::after {
   content: "\f282";
   font-family: "bootstrap-icons";
   font-weight: 600;
@@ -1482,7 +1594,7 @@ header.style-1 .main-menu .menu-list>li.menu-item-has-children::after {
   right: 0px;
   font-size: 13px;
   transition: all 0.42s ease-in-out;
-}
+} */
 
 @media (max-width: 991px) {
   header.style-1 .main-menu .menu-list>li.menu-item-has-children::after {
@@ -1997,8 +2109,8 @@ header.style-3.sticky {
 
 header.style-3 .nav-right .hotline {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+  align-items: end;
   margin-right: 40px;
 }
 
@@ -2410,6 +2522,10 @@ header.style-3 .mobile-menu-form input[type=text] {
   .hero-style-one .slider-bg-1 {
     padding: 160px 0px;
   }
+
+  .nav-logo {
+    width: 40%;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -2477,6 +2593,12 @@ header.style-3 .mobile-menu-form input[type=text] {
   height: 100%;
   z-index: 1;
   position: relative;
+}
+
+@media (min-width: 1200px) and (max-width: 1600px) {
+  /* .nav-logo {
+    display: none;
+  } */
 }
 
 @media (min-width: 1200px) and (max-width: 1399px) {
@@ -4817,6 +4939,7 @@ header.style-3 .mobile-menu-form input[type=text] {
   .testi-prev1 {
     left: -40px;
   }
+
 }
 
 .testi-prev2 i,
@@ -7713,6 +7836,37 @@ live-auction Page
   .small-image-list .nav-item img {
     height: 115px;
   }
+
+  .nav-logo {
+    margin-left: 100px;
+    margin-top: 23px;
+    width: 70%;
+  }
+
+  /* .image-view {
+    width: 50%;
+    margin-left: 0rem;
+
+
+  } */
+}
+
+@media (min-width: 1300px) and (max-width: 1699px) {
+
+  .image-view {
+    width: 30%;
+    margin-left: 5.5rem;
+    margin-top: 25px;
+
+  }
+
+  .nav-logo {
+    width: 20%;
+  }
+
+  /* header.style-1 {
+    padding: 0px 350px 0px 0px;
+  } */
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -7767,9 +7921,7 @@ live-auction Page
   color: #fff;
 }
 
-.bid-list {
-  padding-left: 0;
-}
+
 
 .bid-list li {
   border-bottom: 1px solid #EEEEEE;

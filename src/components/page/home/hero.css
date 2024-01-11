@@ -9,11 +9,22 @@
     background-color: #061E45;
 }
 
+.footer-help {
+    padding-left: 6rem;
+}
+
+.searchInput input {
+    width: 35%;
+
+}
+
 .prev-icon,
 .next-icon {
     font-size: 24px;
     cursor: pointer;
 }
+
+
 
 .prev-icon {
     margin-left: 58rem;
@@ -74,6 +85,14 @@
     border-radius: 10px;
 }
 
+.searchInput {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
 .image-size {
     width: 30px;
 }
@@ -99,19 +118,144 @@
 .image-contain {
     width: 50%;
 
+
 }
 
 
 
 
+@media (max-width: 1180px) {
+    .display-1 {
+        display: flex;
+        justify-content: center;
 
-@media (max-width:400px) {
+
+    }
+
+    .row-all {
+        background-color: #061E45;
+    }
+
+    .prev-icon,
+    .next-icon {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .prev-icon {
+        margin-left: 58rem;
+        position: fixed;
+        bottom: 5%;
+
+    }
+
+    .next-icon {
+        margin-left: 10px;
+        position: fixed;
+        bottom: 5%;
+
+    }
+
+    .carousel-in {
+        width: 50rem;
+    }
+
+    .image-dib {
+        flex: 1;
+        margin-left: 15px;
+    }
+
+    .main-contain {
+        background-color: rgb(132, 132, 254);
+        height: 33rem;
+
+    }
+
+    .card-2 {
+        width: 16rem;
+        height: 30rem;
+        margin-left: 5rem;
+    }
+
+    .icon-all {
+        width: 25px;
+        height: 25px;
+    }
+
+    .category-title {
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .carousel-item {
+        height: 30rem;
+    }
+
+    .main-image {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .main-age {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .searchInput {
+        width: 100%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .image-size {
+        width: 30px;
+    }
+
+    .image-siz {
+        width: 40px;
+    }
+
+    .account-size {
+        font-size: 12px;
+        margin-top: -7px;
+    }
+
+    .profile-line {
+        margin-top: -1px;
+    }
+
+    .profile-line2 {
+        margin-top: -2px;
+
+    }
+
+    .image-contain {
+        width: 50%;
+
+
+    }
+
+    .smallmage {
+        display: block;
+    }
+}
+
+
+
+@media (max-width: 896px) {
     .div2 {
         display: none;
     }
 
+    .searchInput input {
+        width: 60%;
+        /* Adjust the width as needed for smaller screens */
+    }
+
     .footer-help {
-        padding-right: 15rem;
+        padding-left: 1.8rem;
     }
 
     .footer-help2 {
@@ -137,7 +281,7 @@
 
     .image-dib {
         width: 40rem;
-        margin-left: 2px;
+        margin-left: 1.4rem;
     }
 
     .carousel-item {
@@ -147,11 +291,178 @@
 
     .main-image {
         width: 100%;
-        height: 30rem;
+    }
+
+    .main-contain {
+        background-color: rgb(132, 132, 254);
+        height: 18rem;
+
     }
 
 
 
+
+    .carousel-item {
+        height: 15rem;
+        margin-right: 7px;
+
+
+    }
+
+    .smallmage {
+        display: none;
+    }
+
+
+    .card-2 {
+        display: none;
+    }
+
+    .carousel-in {
+        width: 23rem;
+        height: 13rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .div2 {
+        display: none;
+    }
+
+    .searchInput input {
+        width: 60%;
+        /* Adjust the width as needed for smaller screens */
+    }
+
+    .footer-help {
+        padding-right: 13rem;
+    }
+
+    .footer-help2 {
+        padding-left: 1.8rem;
+        padding-top: 10px;
+    }
+
+    .footer-help3 {
+        padding-left: 1.8rem;
+        padding-top: 10px;
+    }
+
+    .image-contain {
+        width: 50%;
+        margin-right: 10rem;
+
+    }
+
+    .news-display {
+        margin-top: 20px;
+        margin-left: 12px;
+    }
+
+    .image-dib {
+        width: 40rem;
+        margin-left: 1.4rem;
+    }
+
+    .carousel-item {
+        height: 30rem;
+
+    }
+
+    .main-image {
+        width: 100%;
+    }
+
+    .main-contain {
+        background-color: rgb(132, 132, 254);
+        height: 18rem;
+
+    }
+
+
+
+
+    .carousel-item {
+        height: 15rem;
+        margin-right: 7px;
+
+
+    }
+
+    .smallmage {
+        display: none;
+    }
+
+
+    .card-2 {
+        display: none;
+    }
+
+    .carousel-in {
+        width: 23rem;
+        height: 13rem;
+    }
+}
+
+
+
+
+
+@media (max-width: 667px) {
+    .div2 {
+        display: none;
+    }
+
+    .footer-help {
+        padding-right: 13rem;
+    }
+
+    .footer-help2 {
+        padding-left: 1.8rem;
+        padding-top: 10px;
+    }
+
+    .footer-help3 {
+        padding-left: 1.8rem;
+        padding-top: 10px;
+    }
+
+    .searchInput input {
+        width: 60%;
+
+    }
+
+    .image-contain {
+        width: 50%;
+
+
+    }
+
+    .news-display {
+        margin-top: 20px;
+        margin-left: 12px;
+    }
+
+    .image-dib {
+        width: 25rem;
+        margin-right: 1.5rem;
+    }
+
+    .carousel-item {
+        height: 30rem;
+
+    }
+
+    .main-image {
+        width: 100%;
+        height: 40rem;
+    }
+
+    .main-contain {
+        background-color: rgb(132, 132, 254);
+        height: 18rem;
+
+    }
 
     .carousel-item {
         height: 15rem;

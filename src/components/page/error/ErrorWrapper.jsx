@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import Swal from "sweetalert2";
+import axiosInstance from "../../../store/axiosinstance";
 import { useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,13 +17,13 @@ function ErrorWrapper() {
   const [email, setEmail] = useState("")
   const history = useHistory()
 
-  const base_url = 'http://gateway.peabux.com/authentication/api/Account/ResetPassword'
+  const base_url = 'http://testgateway.peabux.com/authentication/api/Account/ResetPassword'
 
   const handleEmail = async (event) => {
     event.preventDefault()
     try {
       setIsLoading(true)
-      const response = await axios.post(base_url, { email })
+      const response = await axiosInstance.post(base_url, { email })
       console.log(response.data.result.isSuccess)
 
       if (response.data.result.isSuccess === false) {

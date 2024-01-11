@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useContext } from 'react'
 import { BsCloudUploadFill } from "react-icons/bs"
-import axios from 'axios'
+import axiosInstance from '../../../store/axiosinstance'
+import { Base_Url, base_Url } from '../../../http/config'
 import { MdOutlinePreview } from "react-icons/md"
 import { Modal, Button } from 'react-bootstrap';
+import axios from 'axios'
 import './Createproduct.css'
 import { toast } from "react-toastify"
 import { FaUpload } from "react-icons/fa"
@@ -49,7 +51,7 @@ function CreateProduct() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://gateway.peabux.com/auction/api/Category/GetAllCategory');
+                const response = await axios.get(`${base_Url}/api/Category/GetAllCategory`);
                 console.log(response.data)
                 console.log(response.data.categoryName)
                 setCategory(response.data);
@@ -81,19 +83,27 @@ function CreateProduct() {
 
         let uploaded = 0
         const files = Array.from(e.target.files);
-        const base_url = 'http://gateway.peabux.com/authentication/api/Account/FileUpload';
+        if (files.length < MIN_IMAGES_ALLOWED) {
+            toast.error(`Please select at least ${MIN_IMAGES_ALLOWED} images.`);
+            window.location.reload();
+            return
+
+
+        }
+
+        if (files.length > MAX_IMAGES_ALLOWED) {
+            toast.error(`You can only upload a maximum of ${MAX_IMAGES_ALLOWED} images.`);
+            window.location.reload();
+            return
+
+
+        }
+
 
 
         try {
-            if (files.length < MIN_IMAGES_ALLOWED) {
-                toast.error(`Please select at least ${MIN_IMAGES_ALLOWED} images.`);
-                return;
-            }
+            setUploadLink([]);
 
-            if (files.length > MAX_IMAGES_ALLOWED) {
-                toast.error(`You can only upload a maximum of ${MAX_IMAGES_ALLOWED} images.`);
-                return;
-            }
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
@@ -124,7 +134,7 @@ function CreateProduct() {
                 });
                 setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file.name]);
 
-                const response = await axios.post(base_url, JSON.stringify(fileData), {
+                const response = await axiosInstance.post(`${Base_Url}/authentication/api/Account/FileUpload`, JSON.stringify(fileData), {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -136,7 +146,7 @@ function CreateProduct() {
                 setImagePreviews((prevImagePreviews) => [...prevImagePreviews, imagePreviewUrl]);
 
                 console.log(response.data);
-                console.log(uploadLink)
+                console.log(uploaded)
             }
 
 
@@ -147,11 +157,16 @@ function CreateProduct() {
         } catch (error) {
             console.log(error);
             toast.error('Images upload failed');
+            window.location.reload();
+
         }
     };
 
 
-    const Base_url = 'http://gateway.peabux.com/auction/api/Product/PostDetails'
+
+    function refreshPage() {
+        window.location.href = `${window.location.href}?timestamp=${new Date().getTime()}`;
+    }
     const submitProduct = async () => {
         try {
             setUploading(true)
@@ -175,7 +190,7 @@ function CreateProduct() {
             console.log(data);
 
 
-            const response = await axios.post(Base_url, data);
+            const response = await axiosInstance.post(`${base_Url}/api/Product/PostDetails`, data);
 
             console.log(response.data);
 
@@ -239,7 +254,6 @@ function CreateProduct() {
         setProduct({ ...product, [event.target.name]: [event.target.value] })
     }
 
-    const base_url = "http://gateway.peabux.com/auction/api/Product/PostDetails"
 
     return (
         <UserProvider>

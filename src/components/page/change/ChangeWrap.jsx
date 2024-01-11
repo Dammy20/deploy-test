@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../store/axiosinstance';
 
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import './change.css'
+import { Base_Url } from '../../../http/config';
 
 function ChangeWrap() {
     const [isLoading, setIsLoading] = useState(false)
@@ -21,12 +22,12 @@ function ChangeWrap() {
         oldPassword: change.oldPassword,
         password: change.password,
     }
-    const base_url = 'http://gateway.peabux.com/authentication/api/Account/ChangePassword'
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
             setIsLoading(true)
-            const response = await axios.post(base_url, data)
+            const response = await axiosInstance.post(`${Base_Url}/authentication/api/Account/ChangePassword`, data)
             console.log(response.data.result)
             if (response.data.result.isSuccess === false) {
                 Swal.fire({
@@ -120,37 +121,37 @@ function ChangeWrap() {
 }
 
 export default ChangeWrap
-    // < div class="mainDiv" >
-    //     <div class="cardStyle">
-    //         <form action="" onSubmit={handleSubmit} value={change}>
+// < div class="mainDiv" >
+//     <div class="cardStyle">
+//         <form action="" onSubmit={handleSubmit} value={change}>
 
-    //             <img src="" id="signupLogo" />
+//             <img src="" id="signupLogo" />
 
-    //             <h2 class="formTitle">
-    //                 Change your password
-    //             </h2>
+//             <h2 class="formTitle">
+//                 Change your password
+//             </h2>
 
-    //             <div class="inputDiv">
-    //                 <label class="inputLabel" for="email">Email </label>
-    //                 <input value={change.Email} onChange={(e) => setChange({ ...change, Email: e.target.value })} type="email" id="email" name="password" required />
-    //             </div>
-    //             <div class="inputDiv">
-    //                 <label class="inputLabel" for="password">Old Password</label>
-    //                 <input value={change.oldPassword} onChange={(e) => setChange({ ...change, oldPassword: e.target.value })} type="password" id="password" name="password" required />
-    //             </div>
+//             <div class="inputDiv">
+//                 <label class="inputLabel" for="email">Email </label>
+//                 <input value={change.Email} onChange={(e) => setChange({ ...change, Email: e.target.value })} type="email" id="email" name="password" required />
+//             </div>
+//             <div class="inputDiv">
+//                 <label class="inputLabel" for="password">Old Password</label>
+//                 <input value={change.oldPassword} onChange={(e) => setChange({ ...change, oldPassword: e.target.value })} type="password" id="password" name="password" required />
+//             </div>
 
-    //             <div class="inputDiv">
-    //                 <label class="inputLabel" for="confirmPassword">New Password</label>
-    //                 <input value={change.password} onChange={(e) => setChange({ ...change, password: e.target.value })} type="password" id="confirmPassword" name="confirmPassword" />
-    //             </div>
+//             <div class="inputDiv">
+//                 <label class="inputLabel" for="confirmPassword">New Password</label>
+//                 <input value={change.password} onChange={(e) => setChange({ ...change, password: e.target.value })} type="password" id="confirmPassword" name="confirmPassword" />
+//             </div>
 
-    //             <div class="buttonWrapper">
-    //                 <button style={{ backgroundColor: "#090892" }} type="submit" id="submitButton" onclick="validateSignupForm()" class="submitButton pure-button pure-button-primary">
-    //                     <span>Continue</span>
+//             <div class="buttonWrapper">
+//                 <button style={{ backgroundColor: "#090892" }} type="submit" id="submitButton" onclick="validateSignupForm()" class="submitButton pure-button pure-button-primary">
+//                     <span>Continue</span>
 
-    //                 </button>
-    //             </div>
+//                 </button>
+//             </div>
 
-    //         </form>
-    //     </div>
-    //         </div >
+//         </form>
+//     </div>
+//         </div >
