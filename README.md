@@ -37,7 +37,8 @@ Start the server
 * [Redux](https://redux.js.org/)
 * [Bootstrap](https://getbootstrap.com/)
 
-
+## Deployed Link
+http://dev-liveauction.peabux.com/
 
 
 
